@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.CodeGenerators", "IronERP.CodeGenerators\IronERP.CodeGenerators.csproj", "{877E39B3-77A6-4215-8AA9-BC5C576CC28B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.Tests", "IronERP.Tests\IronERP.Tests.csproj", "{2E506404-FF41-4D92-A098-B1DBEE857415}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.Web", "IronERP.Web\IronERP.Web.csproj", "{15EE9F8C-9217-41AC-B06B-D5ACF7DA8D14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.CommandLine", "IronERP.CommandLine\IronERP.CommandLine.csproj", "{D9687C51-B717-4FCC-8C16-8F33C17E75FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{877E39B3-77A6-4215-8AA9-BC5C576CC28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{877E39B3-77A6-4215-8AA9-BC5C576CC28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{877E39B3-77A6-4215-8AA9-BC5C576CC28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{877E39B3-77A6-4215-8AA9-BC5C576CC28B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E506404-FF41-4D92-A098-B1DBEE857415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E506404-FF41-4D92-A098-B1DBEE857415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E506404-FF41-4D92-A098-B1DBEE857415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E506404-FF41-4D92-A098-B1DBEE857415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15EE9F8C-9217-41AC-B06B-D5ACF7DA8D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15EE9F8C-9217-41AC-B06B-D5ACF7DA8D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15EE9F8C-9217-41AC-B06B-D5ACF7DA8D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15EE9F8C-9217-41AC-B06B-D5ACF7DA8D14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9687C51-B717-4FCC-8C16-8F33C17E75FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9687C51-B717-4FCC-8C16-8F33C17E75FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9687C51-B717-4FCC-8C16-8F33C17E75FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9687C51-B717-4FCC-8C16-8F33C17E75FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

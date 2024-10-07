@@ -1,0 +1,18 @@
+﻿{
+  "name": "DemoModel",
+  "namespace": "DemoNamespace",
+  "fields": [
+    {
+      "name": "Id",
+      "label": "ID",
+      "type": "int",
+      "required": true
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "required": false
+    }
+  ]
+}
