@@ -1,0 +1,85 @@
+site_name: IronERP Docs
+
+repo_url: https://github.com/UTF-8x/IronERP
+repo_name: UTF-8x/IronERP
+edit_uri: /edit/main/docs/
+
+nav:
+  - Home: 
+      - Introduction: index.md
+  - Engine:
+      - Introduction: Engine/index.md
+      - Components:
+          - Introduction: Engine/Components/index.md
+          - Models: Engine/Components/models.md
+          - Controllers: Engine/Components/controllers.md
+  - CLI:
+      - Introduction: CLI/index.md
+      - Reference:
+          - Help Module: CLI/Reference/help.md
+          - Models Module: CLI/Reference/model.md
+
+theme:
+  name: material
+#  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github-alt
+  #logo: img/Vanguard.png
+  font:
+    text: IBM Plex Sans
+    code: Fira Code Mono
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - search.suggest
+    - content.action.edit
+    - content.action.view
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.path
+    - navigation.sections
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+  palette:
+    - scheme: default
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Dark Mode
+    - scheme: slate
+      primary: custom
+      toggle:
+        icon: material/brightness-4
+        name: Light Mode
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
+extra:
+  annotate:
+    json: [.s2]
+
+#extra_css:
+#  - stylesheets/extra.css
+
+# extra:
+#   consent:
+#     title: We use cookies...
+#     description: >-
+#       We use cookies to recognize your repeated visits and preferences, as well
+#       as to measure the effectiveness of our documentation and whether users
+#       find what they're searching for. With your consent, you're helping us to
+#       make our documentation better.%
