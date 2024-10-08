@@ -6,6 +6,7 @@ using IronERP.Web.Configuration;
 using IronERP.Web.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using MongoDB.Driver;
 using Serilog;
 
@@ -18,7 +19,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSerilog();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.OutputFormatters.RemoveType<StringOutputFormatter>();
+});
 builder.Services.AddMvcCore(opts => {})
     .ConfigureApplicationPartManager(apm =>
     apm.FeatureProviders.Add(new GenericControllerProvider()));
@@ -27,6 +31,7 @@ builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection("MongoD
 builder.Services.AddSingleton(new MongoClient(builder.Configuration.GetSection("MongoDB")["Host"]));
 
 builder.Services.AddSingleton<ModelDaoFactory>();
+builder.Services.AddCors();
 
 var modelTypes = Assembly.GetExecutingAssembly()
     .GetTypes()
@@ -43,18 +48,24 @@ var entrypoint = new Entrypoint();
 
 await entrypoint.PreConfigure(builder.Services, builder.Configuration);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 await entrypoint.Configure(app.Services, app.Configuration);
 
 if (args.Length > 0)
 {
-    
     return await entrypoint.Execute(args, app.Services);
 }
 
+app.UseCors(o => o.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.MapGet("/", () => "Hello World!");
 app.MapControllers();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 await app.RunAsync();
 return 0;

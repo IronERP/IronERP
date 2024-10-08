@@ -10,6 +10,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.CodeDom.Compiler;
+using Core.Schema;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using IronERP.Core.Data;
@@ -21,10 +22,11 @@ public partial class Demo : IModel
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
+    [FieldLabel("ID")]
     public string Id { get; set; }
     
     
-        
+        [FieldLabel("Name")]
         public string Name { get; set; }
         
 }

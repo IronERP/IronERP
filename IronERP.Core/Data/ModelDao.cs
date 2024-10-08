@@ -14,4 +14,13 @@ public class ModelDao<T> where T : IModel
     }
 
     public async Task<List<T>> GetAll() => await (await _collection.FindAsync(_ => true)).ToListAsync();
+
+    public async Task<T?> Get(FilterDefinition<T> filter) =>
+        await (await _collection.FindAsync(filter)).FirstOrDefaultAsync();
+
+    public async Task Insert(T entity) =>
+        await _collection.InsertOneAsync(entity);
+
+    public async Task Delete(FilterDefinition<T> filter) =>
+        await _collection.DeleteOneAsync(filter);
 }
