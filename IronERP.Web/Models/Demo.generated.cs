@@ -10,23 +10,38 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.CodeDom.Compiler;
-using Core.Schema;
+using IronERP.Core.Data;
+using IronERP.Core.Schema;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using IronERP.Core.Data;
 
-namespace ErpDemo.Models;
+namespace IronERP.Web.Models;
 
-[GeneratedCode("IronERP.Generators", "1.0.0+0dbad4b7db40cd3a05918e97f36f9b6a8fe48331")]
+[GeneratedCode("IronERP.Generators", "1.0.0+794e75c446a90e1b199df891d2b5b57590bde711")]
 public partial class Demo : IModel
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    [FieldLabel("ID")]
     public string Id { get; set; }
     
     
+        [Required]
+        
+        
         [FieldLabel("Name")]
         public string Name { get; set; }
+        
+        [Required]
+        [SecretField]
+        
+        [FieldLabel("Secret")]
+        public string Secret { get; set; }
+        
+        [Required]
+        
+        [RedactedField]
+        [FieldLabel("Redacted")]
+        public string Redacted { get; set; }
         
 }

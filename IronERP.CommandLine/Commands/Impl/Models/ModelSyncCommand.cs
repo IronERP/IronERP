@@ -1,5 +1,5 @@
+using IronERP.Core.Schema;
 using IronERP.CommandLine.Generator;
-using IronERP.CommandLine.Models;
 using IronERP.CommandLine.Util;
 using MongoDB.Driver;
 using Spectre.Console;
@@ -12,7 +12,7 @@ public class ModelSyncCommand : CommandBase
 {
     private MongoClient _client;
     private string _dbName;
-    private IMongoCollection<ModelModel>? _collection;
+    private IMongoCollection<Model>? _collection;
     
     private const string ModelCollectionName = "Models";
     
@@ -29,7 +29,7 @@ public class ModelSyncCommand : CommandBase
         var db = _client.GetDatabase(_dbName);
         if (db != null)
         {
-            _collection = db.GetCollection<ModelModel>(ModelCollectionName);
+            _collection = db.GetCollection<Model>(ModelCollectionName);
         }
     }
 
@@ -74,7 +74,7 @@ public class ModelSyncCommand : CommandBase
             return;
         }
         
-        var modelsToCreate = new List<ModelModel>();
+        var modelsToCreate = new List<Model>();
         
         foreach (var model in models)
         {

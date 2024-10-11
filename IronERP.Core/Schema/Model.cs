@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Core.Schema;
+namespace IronERP.Core.Schema;
 
 public class Model
 {
@@ -18,6 +18,12 @@ public class Model
         
         [BsonElement("required")]
         public bool Required { get; set; }
+        
+        [BsonElement("secret")]
+        public bool Secret { get; set; }
+        
+        [BsonElement("redacted")]
+        public bool Redacted { get; set; }
     }
     
     [BsonId]

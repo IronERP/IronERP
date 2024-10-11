@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import {ArrowPathIcon, ChevronDownIcon, PencilIcon, PlusIcon, TrashIcon} from "@heroicons/react/20/solid";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+import {EyeSlashIcon, LockClosedIcon} from "@heroicons/react/16/solid";
+import Redacted from "@/app/components/Redacted";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
@@ -101,7 +103,14 @@ export default function EntityDetail({ params }: { params: { name: string } })
                                                     {identifierColumnNames.includes(field.name.toLowerCase())? <>
                                                         <a className="text-sky-600 font-bold" href={`/entities/${schema.name}/${item.id}`}>{item[field.name.toLowerCase()]}</a>
                                                     </>:<>
-                                                        {item[field.name.toLowerCase()]}
+                                                        {(() => {
+                                                            let content = item[field.name.toLowerCase()];
+
+                                                            if(field.redacted) return <Redacted content={content} />;
+                                                            if(field.secret) return <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium bg-gray-800 text-white"><LockClosedIcon className="size-3 text-white" /> Secret</span>;
+
+                                                            return <>{content}</>;
+                                                        })()}
                                                     </>}
                                                 </td>
                                             </>)}

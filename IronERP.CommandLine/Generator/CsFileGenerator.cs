@@ -1,4 +1,4 @@
-using IronERP.CommandLine.Models;
+using IronERP.Core.Schema;
 
 namespace IronERP.CommandLine.Generator;
 
@@ -17,6 +17,8 @@ public class CsFileGenerator
                                     
                                     using System.ComponentModel.DataAnnotations;
                                     using System.CodeDom.Compiler;
+                                    using IronERP.Core.Data;
+                                    using IronERP.Core.Schema;
                                     using MongoDB.Bson;
                                     using MongoDB.Bson.Serialization.Attributes;
                                     using IronERP.Core.Data;
@@ -32,12 +34,15 @@ public class CsFileGenerator
                                         
                                         {{ for field in model.fields }}
                                         {{ if field.required }}[Required]{{ end }}
+                                        {{ if field.secret }}[SecretField]{{ end }}
+                                        {{ if field.redacted }}[RedactedField]{{ end }}
+                                        [FieldLabel("{{ field.label }}")]
                                         public {{ field.type }} {{ field.name }} { get; set; }
                                         {{ end }}
                                     }
                                     """;
 
-    public static string? Generate(ModelModel model, string generatorName, string generatorVersion)
+    public static string? Generate(Model model, string generatorName, string generatorVersion)
     {
         var tpl = Scriban.Template.Parse(Template);
         if (tpl is not null)

@@ -9,6 +9,8 @@ export interface ModelSchema {
         label: string;
         type: string;
         required: boolean;
+        secret: boolean;
+        redacted: boolean;
     }[];
 }
 

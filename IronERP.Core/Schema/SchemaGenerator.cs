@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Schema;
+namespace IronERP.Core.Schema;
 
 public class SchemaGenerator
 {
@@ -18,7 +18,9 @@ public class SchemaGenerator
             {
                 Name = field.Name,
                 Type = field.PropertyType.Name,
-                Required = field.CustomAttributes.Any(a => a.AttributeType == typeof(RequiredAttribute))
+                Required = field.CustomAttributes.Any(a => a.AttributeType == typeof(RequiredAttribute)),
+                Secret = field.CustomAttributes.Any(a => a.AttributeType == typeof(SecretFieldAttribute)),
+                Redacted = field.CustomAttributes.Any(a => a.AttributeType == typeof(RedactedFieldAttribute)),
             };
 
             var attr = Attribute.GetCustomAttribute(field, typeof(FieldLabelAttribute));
