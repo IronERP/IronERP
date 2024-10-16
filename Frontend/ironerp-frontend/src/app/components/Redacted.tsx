@@ -2,7 +2,7 @@
 import {EyeSlashIcon, EyeIcon} from "@heroicons/react/16/solid";
 
 export default function Redacted({ content }: { content: string}) {
-    const [ isShown, setIsShown ] = useState(true);
+    const [ isShown, setIsShown ] = useState(false);
     const redactedText = "Redacted";
     
     const toggle = () => setIsShown(!isShown);

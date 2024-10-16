@@ -8,6 +8,7 @@ import PrelineScript from "@/app/components/PrelineScript";
 import {usePathname} from "next/navigation";
 import {AdjustmentsHorizontalIcon, CircleStackIcon, HomeIcon} from "@heroicons/react/16/solid";
 import { CodeBracketSquareIcon } from "@heroicons/react/24/outline";
+import Searcher from "@/app/components/Searcher";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -47,11 +48,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      
-        <div className="min-h-full">
-          <Disclosure as="nav" className="bg-gray-800">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="flex h-16 items-center justify-between">
+
+      <div className="min-h-full">
+        <Disclosure as="nav" className="bg-gray-800">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     {/*<img alt="Your Company" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" className="h-8 w-8" />*/}
@@ -69,6 +70,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
+                    
+                    <Searcher />
+                    
                     <button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5"/>
                       <span className="sr-only">View notifications</span>

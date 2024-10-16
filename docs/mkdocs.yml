@@ -13,6 +13,8 @@ nav:
           - Introduction: Engine/Components/index.md
           - Models: Engine/Components/models.md
           - Controllers: Engine/Components/controllers.md
+          - Forms: Engine/Components/forms.md
+          - Search: Engine/Components/search.md
   - CLI:
       - Introduction: CLI/index.md
       - Reference:

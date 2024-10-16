@@ -1,0 +1,10 @@
+# Full-text search the "Demo" model for "Hello"
+GET http://localhost:5057/api/v1/Demo/_search?query=Hello
+
+###
+# Full-text search the "Demo" model for "world"
+GET http://localhost:5057/api/v1/Demo/_search?query=World
+
+###
+
+GET http://localhost:5057/api/v1/_search/?query=World

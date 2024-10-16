@@ -27,9 +27,8 @@ public partial class Demo : IModel
     
     
         [Required]
-        
-        
         [FieldLabel("Name")]
+        [Search]
         public string Name { get; set; }
         
         [Required]

@@ -23,4 +23,7 @@ public class ModelDao<T> where T : IModel
 
     public async Task Delete(FilterDefinition<T> filter) =>
         await _collection.DeleteOneAsync(filter);
+
+    public async Task<List<T>> FulltextSearch(string query) =>
+        await (await _collection.FindAsync(Builders<T>.Filter.Text(query))).ToListAsync();
 }

@@ -11,6 +11,7 @@ export default function EntityDetail({ params }: { params: { name: string } })
 {
     const [ schema, setSchema ] = useState<ModelSchema | null>(null);
     const [ contents, setContents ] = useState<any | null>(null);
+    const [ loadingTooLong, setLoadingTooLong ] = useState<boolean>(false);
     
     const identifierColumnNames = [ "id", "name", "label" ];
     
@@ -18,14 +19,32 @@ export default function EntityDetail({ params }: { params: { name: string } })
         SchemaClient.LoadSchema(params.name)
             .then(setSchema)
             .catch(console.error);
-        
+
         SchemaClient.LoadGenericObjectList(params.name)
             .then(setContents)
             .catch(console.error);
     }, []);
     
-    if(schema == null || contents == null) return <p>Loading...</p>;
+    setTimeout(() => { setLoadingTooLong(true) }, 3000);
     
+    if(schema == null || contents == null) return <>
+        <div className="mx-auto max-w-7xl mt-5">
+            <div
+                className="min-h-60 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                <div className="flex flex-auto flex-col justify-center items-center p-4 md:p-5">
+                    <div className="flex justify-center">
+                        <div className="animate-spin inline-block size-14 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+                            role="status" aria-label="loading">
+                            <span className="sr-only">Loading...</span>
+                        </div>                        
+                    </div>
+                    <span className="text-2xl font-thin mt-5">Loading, please wait...</span>
+                    { loadingTooLong? <><span className="mt-2">Still nothing? Try <span onClick={() => { window.location.reload() }} className="text-sky-600 hover:underline cursor-pointer">refreshing the page</span>.</span></> : <></>}
+                </div>
+            </div>
+        </div>
+    </>;
+
     return <>
         <header className="bg-white shadow">
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -33,7 +52,7 @@ export default function EntityDetail({ params }: { params: { name: string } })
                     <div className="min-w-0 flex-1">
                         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">{schema?.name}</h2>
                         <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-                            <div className="mt-2 flex items-center text-sm text-gray-500">
+                        <div className="mt-2 flex items-center text-sm text-gray-500">
                                 {schema?.namespace}
                             </div>
                         </div>

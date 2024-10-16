@@ -61,4 +61,12 @@ public class CrudController<T> : Controller where T : IModel
         var model = new SchemaGenerator().GenerateSchema(typeof(T));
         return Ok(model);
     }
+
+    [HttpGet]
+    [Route("_search")]
+    public async Task<IActionResult> FulltextSearch(string query)
+    {
+        var found = await _dao.FulltextSearch(query);
+        return Ok(found);
+    }
 }

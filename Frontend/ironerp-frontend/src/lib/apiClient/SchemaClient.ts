@@ -22,4 +22,8 @@ export class SchemaClient {
     public static async LoadGenericObjectList(name: string): Promise<any> {
         return await ApiClientCommon.FetchRaw(name);
     }
+    
+    public static async LoadGenericObject(name: string, id: string): Promise<any> {
+        return await ApiClientCommon.FetchOneRaw(name, id);
+    }
 }

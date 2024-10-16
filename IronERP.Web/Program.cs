@@ -1,9 +1,12 @@
 using System.Reflection;
+using Core;
+using Core.Search;
 using IronERP.CommandLine;
 using IronERP.Core.Data;
 using IronERP.Web;
 using IronERP.Web.Configuration;
 using IronERP.Web.Controllers;
+using IronERP.Web.Services.Hosted;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -33,6 +36,8 @@ builder.Services.AddSingleton(new MongoClient(builder.Configuration.GetSection("
 builder.Services.AddSingleton<ModelDaoFactory>();
 builder.Services.AddCors();
 
+builder.Services.AddHostedService<SearchIndexerService>();
+
 var modelTypes = Assembly.GetExecutingAssembly()
     .GetTypes()
     .Where(t => typeof(IModel).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
@@ -51,7 +56,11 @@ await entrypoint.PreConfigure(builder.Services, builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.UseIronERP();
+
 var app = builder.Build();
+
+app.Services.GetRequiredService<ISearchService>();
 
 await entrypoint.Configure(app.Services, app.Configuration);
 
