@@ -64,11 +64,13 @@ jobs:
       
       - name: Setup DotNet
         uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/IronERP/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Push NuGet
         run: |
-          dotnet nuget add source --username IronERP --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/IronERP/index.json"
-          
           foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-            dotnet nuget push $file --api-key "${{ secrets.GITHUB_TOKEN }}" --source github --skip-duplicate
+            dotnet nuget push $file -k "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate true
           }
