@@ -74,5 +74,5 @@ jobs:
       - name: Push NuGet
         run: |
           foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-            dotnet nuget push $file -k "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate true
+            dotnet nuget push $file -k "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
           }
