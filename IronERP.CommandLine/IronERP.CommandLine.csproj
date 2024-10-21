@@ -7,14 +7,6 @@
     
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
-    
-    <Authors>Jakub Sycha</Authors>
-    <Description>A command line tool for IronERP</Description>
-    <PackageProjectUrl>https://github.com/IronERP/IronERP</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/IronERP/IronERP</RepositoryUrl>
-    <PackageTags>erp</PackageTags>
-    <PackageLicenseExpression>GPL-3.0+</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   
   <ItemGroup>

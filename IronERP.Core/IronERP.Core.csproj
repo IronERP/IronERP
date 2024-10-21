@@ -13,7 +13,7 @@
         <PackageProjectUrl>https://github.com/IronERP/IronERP</PackageProjectUrl>
         <RepositoryUrl>https://github.com/IronERP/IronERP</RepositoryUrl>
         <PackageTags>erp</PackageTags>
-        <PackageLicenseExpression>GPL-3.0+</PackageLicenseExpression>
+        <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
