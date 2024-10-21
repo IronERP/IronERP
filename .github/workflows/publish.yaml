@@ -28,7 +28,7 @@ jobs:
       
       - name: Pack
         run: | # We only want to build Web and Core for NuGet
-          dotnet pack IronERP.Core --configuration Release --output ${{ env.NuGetDirectory }} -p:VersionPrefix=${{ github.ref_name }}
+          dotnet pack IronERP.Core --configuration Release --output ${{ env.NuGetDirectory }} -p:VersionPrefix=${{ github.ref_name }} && \
           dotnet pack IronERP.Web --configuration Release --output ${{ env.NuGetDirectory }} -p:VersionPrefix=${{ github.ref_name }}
       
       - name: Publish
