@@ -27,4 +27,4 @@ jobs:
       - name: Build
         run: dotnet build ${SOLUTION} --configuration ${BUILD_CONFIG} --no-restore
       - name: Tests
-        run: dotnet test --configuration ${BUILD_CONF
+        run: dotnet test --configuration ${BUILD_CONFIG}
