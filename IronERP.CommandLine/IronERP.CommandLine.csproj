@@ -4,9 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    
+    <Authors>Jakub Sycha</Authors>
+    <Description>A command line tool for IronERP</Description>
+    <PackageProjectUrl>https://github.com/IronERP/IronERP</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/IronERP/IronERP</RepositoryUrl>
+    <PackageTags>erp</PackageTags>
+    <PackageLicenseExpression>GPL-3.0+</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
+  
   <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
@@ -20,4 +35,7 @@
     <ProjectReference Include="..\IronERP.Core\IronERP.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>
