@@ -20,7 +20,9 @@ export default function NewEntityPage( { params }: { params: { name: string } })
     
     const handleSubmit = () => {
         if(editorRef.current?.validateForm()) {
-            
+            // SchemaClient.PostGenericObject(params.name, item)
+            //     .then()
+            console.log(item);
         }
     }
     
@@ -41,7 +43,7 @@ export default function NewEntityPage( { params }: { params: { name: string } })
 
                     <div className="mt-5 flex lg:ml-4 lg:mt-0">
                         <span className="sm:ml-3">
-                            <button type="button"
+                            <button type="button" onClick={handleSubmit}
                                     className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 <InboxArrowDownIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Save 
                             </button>

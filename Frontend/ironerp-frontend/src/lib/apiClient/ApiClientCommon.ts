@@ -10,6 +10,16 @@
         return (await res.json()) as T;
     }
     
+    static async PostObject(resourceType: string, obj: any) : Promise<number> {
+        const res = await fetch(`${this.apiBase}/${resourceType}`, {
+            method: "POST",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(obj)
+        });
+        
+        return res.status;
+    }
+    
     static async FetchRaw(resourceType: string): Promise<any> {
         const res = await fetch(`${this.apiBase}/${resourceType}`, {
             method: "GET",

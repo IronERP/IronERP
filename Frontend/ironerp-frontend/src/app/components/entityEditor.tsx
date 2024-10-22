@@ -21,7 +21,7 @@ function EntityEditor(
 ) {
     const [ isChanged, setIsChanged ] = useState<boolean>(false);
     const [ originalState, setOriginalState ] = useState<string | null>(null);
-    const [ errors, setErrors ] = useState<any | null>(null);
+    const [ errors, setErrors ] = useState<string[]>([]);
     
     useEffect(() => {
         setOriginalState(JSON.stringify(values));
@@ -37,16 +37,29 @@ function EntityEditor(
     const isOriginalState = () => originalState === JSON.stringify(values);
     
     const validateForm = () => {
-        return true; 
+        setErrors([]);
+        console.log("pepiz")
+        let ret = true;
+        schema?.fields.map(field => {
+            if(field.required && (values[field.name.toLowerCase()] == null || values[field.name.toLowerCase()] == undefined || values[field.name.toLowerCase()] == ""))
+            {                
+                setErrors([...errors, `Field '${field.name}' is required`]);
+                ret = false;
+            }
+        })
+        
+        return ret;
     }
     
     useImperativeHandle(ref, () => ({ validateForm }))
     
     if(schema != null) {
         return <>
-            {schema?.fields.map((field) => <>
+            { (errors.length > 0)? <> {errors.map(error => <div className="bg-red-100 border border-red-500 rounded px-4 py-2 text-red-800">{error}</div>)}</>: <></ >}
+            
+                {schema?.fields.map((field) => <>
                 <div>
-                    <div className="flex rounded-lg shadow-sm">
+                <div className="flex rounded-lg shadow-sm">
                         { ((!field.secret && !field.redacted) || mode == 'new')? <>
                             <span className="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-50 text-sm text-gray-500 dark:bg-neutral-700 dark:border-neutral-700 dark:text-neutral-400">                                
                                 {field.label? field.label : field.name}
