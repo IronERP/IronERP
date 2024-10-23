@@ -43,7 +43,7 @@ body:
       description: "Please describe what should happen if the bug was not present"
     validations:
       required: true
-  - type: textares
+  - type: textarea
     id: "repro_steps"
     attributes:
       label: "Steps to reproduce"
