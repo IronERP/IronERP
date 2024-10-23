@@ -1,5 +1,18 @@
 "use client";
 
+/*
+ * This file is part of IronERP.
+ * 
+ * IronERP is free software: you can redistribute it and/or modify it under the terms of 
+ * the GNU General Public License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * IronERP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+ * PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with IronERP. 
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import {InboxArrowDownIcon} from "@heroicons/react/16/solid";
 import {useEffect, useRef, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
@@ -20,7 +33,9 @@ export default function NewEntityPage( { params }: { params: { name: string } })
     
     const handleSubmit = () => {
         if(editorRef.current?.validateForm()) {
-            
+            // SchemaClient.PostGenericObject(params.name, item)
+            //     .then()
+            console.log(item);
         }
     }
     
@@ -41,7 +56,7 @@ export default function NewEntityPage( { params }: { params: { name: string } })
 
                     <div className="mt-5 flex lg:ml-4 lg:mt-0">
                         <span className="sm:ml-3">
-                            <button type="button"
+                            <button type="button" onClick={handleSubmit}
                                     className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 <InboxArrowDownIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Save 
                             </button>

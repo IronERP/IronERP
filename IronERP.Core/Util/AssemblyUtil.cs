@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of IronERP.
  * 
  * IronERP is free software: you can redistribute it and/or modify it under the terms of 
@@ -11,23 +11,30 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IronERP.Core.Util;
-using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using IronERP.Core.Data;
 
-namespace IronERP.Web.Controllers;
+namespace IronERP.Core.Util;
 
 /// <summary>
-/// This controller provides utility endpoints for the Frontend
+/// Utility functions for working with assemblies
 /// </summary>
-[ApiController]
-[Route("/api/v1/[controller]/[action]")]
-public class ConfigurationController : Controller
+public static class AssemblyUtil
 {
     /// <summary>
-    /// Returns a list of available model types
+    /// Get a list of all loaded IModels
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public Task<IActionResult> Models() => Task.FromResult((IActionResult)Ok(AssemblyUtil.ListAllModels().Select(m => m.Name).ToList()));
+    public static List<Type> ListAllModels() => Assembly.GetExecutingAssembly()
+        .GetTypes()
+        .Where(t => typeof(IModel).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
+        .ToList();
+
+    /// <summary>
+    /// Get the assembly version
+    /// </summary>
+    /// <returns></returns>
+    public static string? GetVersion() => Assembly.GetExecutingAssembly()
+        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+        ?.InformationalVersion?.Split("+").FirstOrDefault();
 }

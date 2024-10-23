@@ -11,14 +11,29 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace IronERP.Web.Configuration;
+using IronERP.Core.Util;
+using IronERP.Web.Controllers;
+
+namespace IronERP.Web.Util;
 
 /// <summary>
-/// POCO for the MongoDB appsettings.json section
+/// ASP configuration extension method for a cleaner Program.cs
 /// </summary>
-public class MongoConfig
+public static class AspNetExtensions
 {
-    public string? Hostname { get; set; } = null;
-    
-    public string? Database { get; set; } = null;
+    /// <summary>
+    /// Enable the dynamic CRUD controller functionality
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection UseDynamicControllers(this IServiceCollection services)
+    {
+        foreach (var model in AssemblyUtil.ListAllModels())
+        {
+            var controllerType = typeof(CrudController<>).MakeGenericType(model);
+            services.AddTransient(controllerType);
+        }
+
+        return services;
+    }
 }
