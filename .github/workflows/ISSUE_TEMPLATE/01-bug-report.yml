@@ -1,0 +1,57 @@
+---
+name: "🐞 Bug Report"
+description: "If you found an issue in IronERP, please report it here"
+labels: ["type/bug", "triage"]
+body:
+  - type: input
+    id: "ironerp_core_version"
+    attributes:
+      label: "Exact IronERP.Core version"
+      description: "Please provide the exact version of the IronERP.Core package you're using"
+    validations:
+      required: true
+  - type: input
+    id: "ironerp_web_version"
+    attributes:
+      label: "Exact IronERP.Web version"
+      description: "Please provide the exact version of the IronERP.Web package you're using"
+    validations:
+      required: true
+  - type: input
+    id: "dotnet_version"
+    attributes:
+      label: "Exact .NET SDK Version"
+      description: "What version of the .NET SDK are you using"
+    validations:
+      required: true
+  - type: input
+    id: "os_version"
+    attributes:
+      label: "Your OS and OS version"
+      description: "What operating system and what version of it are you using? E.g. Windows 11 23H2, macOS 14.7, etc."
+    validations:
+      required: true
+  - type: textarea
+    id: "description"
+    attributes:
+      label: "Issue Description"
+      description: "Please describe your issue in as much detail as possible"
+  - type: textarea
+    id: "expected_outcome"
+    attributes:
+      label: "Expected outcome"
+      description: "Please describe what should happen if the bug was not present"
+    validations:
+      required: true
+  - type: textares
+    id: "repro_steps"
+    attributes:
+      label: "Steps to reproduce"
+      description: "Please describe how to replicate this bug, step-by-step"
+    validations:
+      required: true
+  - type: textarea
+    id: "notes"
+    attributes:
+      label: "Optional notes"
+      description: "Anything to add?"

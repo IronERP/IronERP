@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💡 Features and Ideas
+    url: https://github.com/IronERP/IronERP/discussions/new?category=features-and-ideas
+    about: For ideas and feature requests, please start a new discussion.
+  - name: 📖 Documentation Issue
+    url: https://github.com/IronERP/Docs/issues
+    about: Please report documentation issues in the docs repo.
+  - name: 🔐 Security Issue
+    url: https://ironerp.org/security-issues
+    about: Found a security issue in IronERP? Please read this page to learn how to disclose it responsibly.
