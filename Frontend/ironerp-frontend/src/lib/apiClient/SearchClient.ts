@@ -1,15 +1,36 @@
+/*
+ * This file is part of IronERP.
+ * 
+ * IronERP is free software: you can redistribute it and/or modify it under the terms of 
+ * the GNU General Public License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * IronERP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+ * PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with IronERP. 
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import {ApiClientCommon} from "@/lib/apiClient/ApiClientCommon";
 
+/**
+ * Search result structure
+ */
 export type SearchResult = {
     title: string;
     type: string;
     link: string;
 };
 
-
 export class SearchClient {
     public static allowedNameFields = [ "Name", "name", "Title", "title", "Label", "label", "Description", "description" ];
-    
+
+    /**
+     * Try to infer which field is the Name
+     * @param item
+     * @constructor
+     * @private
+     */
     private static GetName(item: any): string {
         let name = item["_v"]["_id"]["$oid"] as string;
         
@@ -19,11 +40,16 @@ export class SearchClient {
         
         return name;
     }
-    
+
+    /**
+     * Call meilisearch
+     * @param query
+     * @constructor
+     */
     public static async Search(query: string): Promise<SearchResult[]> {
         const ret: SearchResult[] = [];
         
-        const res = await ApiClientCommon.FetchFullRaw(`_search?query=${query}`);
+        const res = await ApiClientCommon.FetchRaw(`_search?query=${query}`);
         
         res.map((i: any) => {
             const itemId = i["_v"]["_id"]["$oid"];
@@ -39,32 +65,3 @@ export class SearchClient {
         return ret;
     }
 }
-
-/*
-[
-  {
-    "_t": "MongoDB.Bson.BsonDocument, MongoDB.Bson",
-    "_v": {
-      "_id": {
-        "$oid": "670ceb79f6fde499a490d8dc"
-      },
-      "Name": "Goodbye World",
-      "Secret": "secret",
-      "Redacted": "redacted",
-      "$_iet": "Demo"
-    }
-  },
-  {
-    "_t": "MongoDB.Bson.BsonDocument, MongoDB.Bson",
-    "_v": {
-      "_id": {
-        "$oid": "6705289b0b6a3c1bf751c6de"
-      },
-      "Name": "Hello World",
-      "Secret": "Secret",
-      "Redacted": "Redacted",
-      "$_iet": "Demo"
-    }
-  }
-]
- */
