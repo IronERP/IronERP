@@ -24,8 +24,9 @@ export interface EntityEditorRef {
 }
 
 function EntityEditor(
-    { schema, values, setValues, mode, onStateChanged }: 
+    { isLoading, schema, values, setValues, mode, onStateChanged }: 
     {
+        isLoading: boolean,
         schema: ModelSchema | null,
         values: any | null,
         setValues: SetStateCallback, 
@@ -52,17 +53,19 @@ function EntityEditor(
     const isOriginalState = () => originalState === JSON.stringify(values);
     
     const validateForm = () => {
-        setErrors([]);
-        console.log("pepiz")
+        const errs: string[] = [];
+        
         let ret = true;
         schema?.fields.map(field => {
+            console.log("Checking field ", field.name)
             if(field.required && (values[field.name.toLowerCase()] == null || values[field.name.toLowerCase()] == undefined || values[field.name.toLowerCase()] == ""))
-            {                
-                setErrors([...errors, `Field '${field.name}' is required`]);
+            {
+                errs.push(`Field '${field.name}' is required`);
                 ret = false;
             }
         })
         
+        setErrors(errs);
         return ret;
     }
     
@@ -70,7 +73,7 @@ function EntityEditor(
     
     if(schema != null) {
         return <>
-            { (errors.length > 0)? <> {errors.map(error => <div className="bg-red-100 border border-red-500 rounded px-4 py-2 text-red-800">{error}</div>)}</>: <></ >}
+            { (errors.length > 0)? <> {errors.map(err => <div className="bg-red-100 border border-red-500 rounded px-4 py-2 text-red-800">{err}</div>)}</>: <></ >}
             
                 {schema?.fields.map((field) => <>
                 <div>
@@ -80,7 +83,7 @@ function EntityEditor(
                                 {field.label? field.label : field.name}
                                 {field.required? <><span className="text-red-500 ms-1 font-black">*</span></> : <></>}
                             </span>
-                            <input onChange={ e => setValues({ ...values, [field.name.toLowerCase()]: e.target.value })} value={values[field.name.toLowerCase()]} disabled={(field.name.toLowerCase() == "id")} type="text" className="py-3 px-4 pe-11 block w-full border-gray-200 shadow-sm rounded-e-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"/>
+                            <input onChange={ e => setValues({ ...values, [field.name.toLowerCase()]: e.target.value })} value={values[field.name.toLowerCase()]} disabled={(field.name.toLowerCase() == "id" || isLoading)} type="text" className="py-3 px-4 pe-11 block w-full border-gray-200 shadow-sm rounded-e-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"/>
                         </> : <>
                             {field.secret? <>
                                 <span className="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-50 text-sm text-gray-500 dark:bg-neutral-700 dark:border-neutral-700 dark:text-neutral-400">

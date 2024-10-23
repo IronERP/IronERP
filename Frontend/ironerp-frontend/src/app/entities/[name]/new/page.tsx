@@ -17,11 +17,15 @@ import {InboxArrowDownIcon} from "@heroicons/react/16/solid";
 import {useEffect, useRef, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import EntityEditor, {EntityEditorRef} from "@/app/components/entityEditor";
+import {useRouter} from "next/navigation";
 
 export default function NewEntityPage( { params }: { params: { name: string } }) {
     const [ item, setItem ] = useState<any | null>({});
     const [ schema, setSchema ] = useState<ModelSchema | null>(null);
     const [ isChanged, setIsChanged ] = useState<boolean>(false);
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
+    const [ error, setError ] = useState<string | null>(null);
+    const router = useRouter();
     
     const editorRef = useRef<EntityEditorRef>(null);
 
@@ -32,10 +36,17 @@ export default function NewEntityPage( { params }: { params: { name: string } })
     }, []);
     
     const handleSubmit = () => {
+        setIsLoading(true);
+        setError(null);
         if(editorRef.current?.validateForm()) {
-            // SchemaClient.PostGenericObject(params.name, item)
-            //     .then()
-            console.log(item);
+            SchemaClient.PostGenericObject(params.name, item)
+                .then(() => router.push(`/entities/${params.name}`))
+                .catch(err => {
+                    setError(err.message)
+                    setIsLoading(false);
+                });            
+        } else {
+            setIsLoading(false);
         }
     }
     
@@ -56,10 +67,22 @@ export default function NewEntityPage( { params }: { params: { name: string } })
 
                     <div className="mt-5 flex lg:ml-4 lg:mt-0">
                         <span className="sm:ml-3">
-                            <button type="button" onClick={handleSubmit}
-                                    className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                <InboxArrowDownIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Save 
-                            </button>
+                            {isLoading? <>
+                                <button type="button" disabled
+                                        className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    <div
+                                        className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-green-400 rounded-full"
+                                        role="status" aria-label="loading">                                        
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    <span className="ms-2 text-green-400">Saving...</span>                                    
+                                </button>
+                            </> : <>
+                                <button type="button" onClick={handleSubmit}
+                                        className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    <InboxArrowDownIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Save
+                                </button>
+                            </>}                            
                         </span>
                     </div>
                 </div>
@@ -70,9 +93,13 @@ export default function NewEntityPage( { params }: { params: { name: string } })
                 <div className="flex flex-col">
                     <div className="-m-1.5 overflow-x-auto">
                         <div className="p-1.5 min-w-full inline-block align-middle">
+                            {error != null? <><div className="bg-red-200 border border-red-600 text-red-800 rounded px-4 py-2 mb-4"><strong>Oh crud! Something went wrong: </strong>{error}</div></> : <></>}
+
                             <div className="border rounded-lg shadow overflow-hidden">
                                 <div className="p-2 space-y-3">
-                                    <EntityEditor schema={schema} values={item} setValues={setItem} mode='new' onStateChanged={b => setIsChanged(b) } ref={editorRef} />
+                                    <EntityEditor isLoading={isLoading} schema={schema} values={item}
+                                                  setValues={setItem} mode='new' onStateChanged={b => setIsChanged(b)}
+                                                  ref={editorRef}/>
                                 </div>
                             </div>
                         </div>
