@@ -25,7 +25,7 @@ public static class AssemblyUtil
     /// Get a list of all loaded IModels
     /// </summary>
     /// <returns></returns>
-    public static List<Type> ListAllModels() => Assembly.GetExecutingAssembly()
+    public static List<Type> ListAllModels() => Assembly.GetCallingAssembly()
         .GetTypes()
         .Where(t => typeof(IModel).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
         .ToList();
