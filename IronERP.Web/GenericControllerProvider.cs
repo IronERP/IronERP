@@ -1,4 +1,5 @@
 using System.Reflection;
+using Core.Util;
 using IronERP.Core.Data;
 using IronERP.Web.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -11,12 +12,7 @@ public class GenericControllerProvider : IApplicationFeatureProvider<ControllerF
 {
     public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
     {
-        var modelTypes = Assembly.GetExecutingAssembly()
-            .GetTypes()
-            .Where(t => typeof(IModel).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
-            .ToList();
-        
-        foreach (var model in modelTypes)
+        foreach (var model in AssemblyUtil.ListAllModels())
         {
             Log.Debug("Registering automagic CRUD controller for type {Type}", model.Name);
             var controllerType = typeof(CrudController<>).MakeGenericType(model).GetTypeInfo();

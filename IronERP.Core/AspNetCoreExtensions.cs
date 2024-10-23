@@ -1,5 +1,6 @@
 using Core.HostedServices;
 using Core.Search;
+using IronERP.Core.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core;
@@ -10,5 +11,6 @@ public static class AspNetCoreExtensions
     
     public static IServiceCollection UseIronERP(this IServiceCollection services) => services
         .AddSingleton<ISearchService, MongoSearchService>()
-        .AddSingleton<MeilisearchIndexerService>();
+        .AddSingleton<MeilisearchIndexerService>()
+        .AddSingleton<ModelDaoFactory>();
 }
