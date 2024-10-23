@@ -104,6 +104,8 @@ Once the frontend server starts, you can access your IronERP instance at [http:/
 If you're working on something based on an issue, please include the issue number in the branch name. Use prefixes to
 indicate the intention of the code in the branch.
 
+**Regular IronERP development happens on the `nightly` branch, please base your branches from there!**
+
 In general, please keep branch names in this format: `<feature/fix>/<issue_number>-<description>`.
 
 For example:
