@@ -19,7 +19,7 @@ export class ApiClientCommon {
      * @param resourceType
      * @constructor
      */
-    static async FetchResourceList<T>(resourceType: string): Promise<T> {
+    public static async FetchResourceList<T>(resourceType: string): Promise<T> {
         const res = await fetch(`${this.apiBase}/${resourceType}`, {
             method: "GET",
             headers: { 'Accept': 'application/json' }
@@ -34,7 +34,7 @@ export class ApiClientCommon {
      * @param obj
      * @constructor
      */
-    static async PostObject(resourceType: string, obj: any) : Promise<number> {
+    public static async PostObject(resourceType: string, obj: any) : Promise<number> {
         const res = await fetch(`${this.apiBase}/${resourceType}`, {
             method: "POST",
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ export class ApiClientCommon {
      * @param resourceType
      * @constructor
      */
-    static async FetchRaw(resourceType: string): Promise<any> {
+    public static async FetchRaw(resourceType: string): Promise<any> {
         const res = await fetch(`${this.apiBase}/${resourceType}`, {
             method: "GET",
             headers: { 'Accept': 'application/json' }
@@ -64,12 +64,22 @@ export class ApiClientCommon {
      * @param id
      * @constructor
      */
-    static async FetchOneRaw(resourceType: string, id: string): Promise<any> {
+    public static async FetchOneRaw(resourceType: string, id: string): Promise<any> {
         const res = await fetch(`${this.apiBase}/${resourceType}/${id}`, {
             method: "GET",
             headers: { 'Accept': 'application/json' }
         });
 
+        return (await res.json()) as any;
+    }
+    
+    public static async PutRaw(resourceType: string, content: any) : Promise<any> {
+        const res = await fetch(`${this.apiBase}/${resourceType}`, {
+            method: "PUT",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(content)
+        });
+        
         return (await res.json()) as any;
     }
 }

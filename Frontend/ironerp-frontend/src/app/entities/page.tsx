@@ -21,6 +21,9 @@ import {
     ChevronDownIcon,
     PencilIcon, PlusIcon, TrashIcon,
 } from "@heroicons/react/20/solid";
+import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
+import {HomeIcon} from "@heroicons/react/16/solid";
+import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 
 export default function Entities() {
     const [items, setItems] = useState<string[]>([]);
@@ -38,6 +41,19 @@ export default function Entities() {
             .then((items) => setItems(items))
             .catch(setError);
     }
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            name: "Home",
+            icon: <HomeIcon className="size-4 me-2"/>,
+            href: "/",
+            current: false
+        },
+        {
+            name: "Models",
+            current: true
+        }
+    ];
     
     const body = error == null? <>
         {items.length > 0? <>
@@ -104,6 +120,8 @@ export default function Entities() {
     return (
         <>
             <header className="bg-white shadow">
+                <Breadcrumbs items={breadcrumbs} />
+                
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <div className="lg:flex lg:items-center lg:justify-between">
                         <div className="min-w-0 flex-1">

@@ -17,8 +17,11 @@ import {useEffect, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import {ArrowPathIcon, ChevronDownIcon, PencilIcon, PlusIcon, TrashIcon} from "@heroicons/react/20/solid";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {LockClosedIcon} from "@heroicons/react/16/solid";
+import {HomeIcon, LockClosedIcon} from "@heroicons/react/16/solid";
 import Redacted from "@/app/components/Redacted";
+import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
+import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
+import {CubeTransparentIcon} from "@heroicons/react/24/solid";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
@@ -57,9 +60,30 @@ export default function EntityDetail({ params }: { params: { name: string } })
             </div>
         </div>
     </>;
+    
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            name: "Home",
+            icon: <HomeIcon className="size-4 me-2"/>,
+            href: "/",
+            current: false
+        },
+        {
+            name: "Models",
+            icon: <CodeBracketSquareIcon className="size-4 me-2"/>,
+            href: "/entities",
+            current: false
+        },
+        {
+            name: params.name,
+            current: true
+        }
+    ];
 
     return <>
         <header className="bg-white shadow">
+            <Breadcrumbs items={breadcrumbs} />
+            
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="min-w-0 flex-1">

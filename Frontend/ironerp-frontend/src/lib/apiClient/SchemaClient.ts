@@ -37,7 +37,7 @@ export class SchemaClient {
      * @constructor
      */
     public static async LoadSchema(name: string): Promise<ModelSchema> {
-        return await ApiClientCommon.FetchResourceList<ModelSchema>(`${name}/schema`);
+        return await ApiClientCommon.FetchResourceList<ModelSchema>(`${name}/_schema`);
     }
 
     /**
@@ -67,5 +67,10 @@ export class SchemaClient {
      */
     public static async PostGenericObject(model: string, content: any) : Promise<number> {
         return await ApiClientCommon.PostObject(model, content);
+    }
+    
+    public static async PutGenericObject(model: string, content: any) : Promise<any>
+    {
+        return await ApiClientCommon.PutRaw(model, content);
     }
 }

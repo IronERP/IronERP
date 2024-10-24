@@ -79,6 +79,27 @@ public class CrudController<T>(ModelDaoFactory modelDaoFactory) : Controller whe
     }
 
     /// <summary>
+    /// Updated an entity. The request entity must have an ID.
+    /// Throws a bad request if the model validation fails
+    /// Throws 404 if nothing exists with the specified ID. Depending on your use case,
+    /// you should either consider this an error or an encouragement to do an insert instead.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(T model)
+    {
+        if (model.Id is null) return BadRequest("Entity ID must be present on update");
+        if (false == await _dao.Exists(model.Id)) return NotFound();
+        
+        var result = await _dao.Update(model);
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Deletes an entity by ID if it exists.
     /// </summary>
     /// <param name="id"></param>
@@ -96,7 +117,7 @@ public class CrudController<T>(ModelDaoFactory modelDaoFactory) : Controller whe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [Route("schema")]
+    [Route("_schema")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public Task<IActionResult> Schema()
     {

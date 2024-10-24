@@ -40,6 +40,9 @@ public class Model
         
         [BsonElement("redacted")]
         public bool Redacted { get; set; }
+        
+        [BsonElement("searchable")]
+        public bool Searchable { get; set; }
     }
     
     [BsonId]

@@ -13,11 +13,14 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {InboxArrowDownIcon} from "@heroicons/react/16/solid";
+import {HomeIcon, InboxArrowDownIcon} from "@heroicons/react/16/solid";
 import {useEffect, useRef, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import EntityEditor, {EntityEditorRef} from "@/app/components/entityEditor";
 import {useRouter} from "next/navigation";
+import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
+import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
+import {CubeTransparentIcon} from "@heroicons/react/24/solid";
 
 export default function NewEntityPage( { params }: { params: { name: string } }) {
     const [ item, setItem ] = useState<any | null>({});
@@ -49,9 +52,36 @@ export default function NewEntityPage( { params }: { params: { name: string } })
             setIsLoading(false);
         }
     }
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            name: "Home",
+            icon: <HomeIcon className="size-4 me-2"/>,
+            href: "/",
+            current: false
+        },
+        {
+            name: "Models",
+            icon: <CodeBracketSquareIcon className="size-4 me-2"/>,
+            href: "/entities",
+            current: false
+        },
+        {
+            name: params.name,
+            icon: <CubeTransparentIcon className="size-4 me-2"/>,
+            href: `/entities/${params.name}`,
+            current: false
+        },
+        {
+            name: `Create new ${params.name}`,
+            current: true
+        }
+    ];
     
     return <>
         <header className="bg-white shadow">
+            <Breadcrumbs items={breadcrumbs} />
+            
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="min-w-0 flex-1">

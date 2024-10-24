@@ -48,6 +48,24 @@ public class ModelDao<T>(IMongoDatabase db) where T : IModel
         await _collection.InsertOneAsync(entity);
         return true;
     }
+
+    /// <summary>
+    /// Updates one entity by ID
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public async Task<ReplaceOneResult?> Update(T? entity)
+    {
+        if (entity == null || entity.Id == null) return null;
+        return await _collection.ReplaceOneAsync(f => f.Id == entity.Id, entity);
+    }
+
+    /// <summary>
+    /// Checks an entity's existence by ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<bool> Exists(string id) => (await _collection.CountDocumentsAsync(f => f.Id == id)) > 0;
     
     /// <summary>
     /// Delete an entity
