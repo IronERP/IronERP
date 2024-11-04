@@ -73,4 +73,8 @@ export class SchemaClient {
     {
         return await ApiClientCommon.PutRaw(model, content);
     }
+    
+    public static async DeleteGenericObject(model: string, id: string) : Promise<bool> {
+        return await ApiClientCommon.DeleteRaw(model, id);
+    }
 }

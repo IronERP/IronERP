@@ -65,3 +65,85 @@ a.link {
 .field-select {
   @apply py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg rounded-l-none text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
 }
+
+.button {
+  @apply 
+    py-2 
+    px-3 
+    inline-flex 
+    items-center 
+    gap-x-2
+    text-sm 
+    font-medium 
+    rounded-lg
+    border 
+    border-gray-200
+    bg-white 
+    text-gray-800
+    shadow-sm 
+    hover:bg-gray-50 
+    focus:outline-none 
+    focus:bg-gray-50 
+    disabled:opacity-50 
+    disabled:pointer-events-none;
+}
+
+.button.intent-primary {
+  @apply  bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700;
+}
+
+.button.intent-secondary {
+  @apply  bg-slate-100 text-black hover:bg-slate-200 focus:bg-slate-200;
+}
+
+.button.intent-success {
+  @apply  bg-green-600 text-white hover:bg-green-700 focus:bg-green-700;
+}
+
+.button.intent-danger {
+  @apply  bg-red-600 text-white hover:bg-red-700 focus:bg-red-700;
+}
+
+.button.intent-warning {
+  @apply  bg-yellow-400 text-black hover:bg-yellow-500 focus:bg-yellow-500;
+}
+
+.text-primary {
+  @apply text-blue-600;
+}
+
+.text-secondary {
+  @apply text-slate-400;
+}
+
+.text-success {
+  @apply text-green-600;
+}
+
+.text-danger {
+  @apply text-red-600;
+}
+
+.text-warning {
+  @apply text-yellow-600;
+}
+
+.accent-primary {
+  @apply bg-blue-200;
+}
+
+.accent-secondary {
+  @apply bg-slate-200;
+}
+
+.accent-success {
+  @apply bg-green-200;
+}
+
+.accent-danger {
+  @apply bg-red-200;
+}
+
+.accent-warning {
+  @apply bg-yellow-200;
+}

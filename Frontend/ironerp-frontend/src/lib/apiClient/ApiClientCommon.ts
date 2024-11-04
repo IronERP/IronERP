@@ -82,4 +82,13 @@ export class ApiClientCommon {
         
         return (await res.json()) as any;
     }
+    
+    public static async DeleteRaw(resourceType: string, id: string) : Promise<boolean> {
+        const res = await fetch(`${this.apiBase}/${resourceType}/?id=${id}`, {
+            method: "DELETE",
+            headers: { 'Accept': 'application/json' }
+        });
+        
+        return res.status == 200;
+    }
 }

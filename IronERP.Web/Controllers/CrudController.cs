@@ -108,8 +108,9 @@ public class CrudController<T>(ModelDaoFactory modelDaoFactory) : Controller whe
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Delete(string id)
     {
+        if (false == await _dao.Exists(id)) return NotFound();
         await _dao.Delete(Builders<T>.Filter.Eq("Id", id));
-        return NoContent();
+        return Ok();
     }
 
     /// <summary>

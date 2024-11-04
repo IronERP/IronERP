@@ -15,9 +15,7 @@
 
 import {useEffect, useRef, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
-import {ChevronDownIcon, TrashIcon} from "@heroicons/react/20/solid";
-import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import RedactedField from "@/app/components/RedactedField";
+import {TrashIcon} from "@heroicons/react/20/solid";
 import {HomeIcon, InboxArrowDownIcon} from "@heroicons/react/16/solid";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {CubeTransparentIcon} from "@heroicons/react/24/solid";
