@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.CommandLine", "Iron
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.Core", "IronERP.Core\IronERP.Core.csproj", "{60727988-7BDA-40E8-9230-11BF47479C18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronERP.Apps.CRM", "IronERP.Apps.CRM\IronERP.Apps.CRM.csproj", "{D3B5553A-326E-4042-B2C4-45B027259899}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{60727988-7BDA-40E8-9230-11BF47479C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60727988-7BDA-40E8-9230-11BF47479C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60727988-7BDA-40E8-9230-11BF47479C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B5553A-326E-4042-B2C4-45B027259899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B5553A-326E-4042-B2C4-45B027259899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B5553A-326E-4042-B2C4-45B027259899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B5553A-326E-4042-B2C4-45B027259899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

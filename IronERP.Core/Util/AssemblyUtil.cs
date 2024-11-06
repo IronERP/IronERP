@@ -12,6 +12,7 @@
  */
 
 using System.Reflection;
+using IronERP.Core.Attributes;
 using IronERP.Core.Data;
 
 namespace IronERP.Core.Util;
@@ -25,10 +26,27 @@ public static class AssemblyUtil
     /// Get a list of all loaded IModels
     /// </summary>
     /// <returns></returns>
-    public static List<Type> ListAllModels() => Assembly.GetCallingAssembly()
-        .GetTypes()
-        .Where(t => typeof(IModel).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
-        .ToList();
+    public static List<Type> ListAllModels()
+    {
+        // Assembly.GetCallingAssembly()
+        //        .GetTypes()
+        //        .Where(t => typeof(IModel).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
+        //        .ToList();
+
+        var allTypes = new List<Type>();
+        
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            allTypes.AddRange(assembly
+                .GetTypes()
+                .Where(t => typeof(IModel).IsAssignableFrom(t) && t is { IsAbstract: false, IsInterface: false } && t.GetCustomAttribute<NoGenerateCrudAttribute>() == null)
+                .ToList());
+        }
+
+        
+        
+        return allTypes;
+    }
 
     /// <summary>
     /// Get the assembly version

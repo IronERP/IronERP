@@ -57,4 +57,7 @@ public class Model
     
     [BsonElement("fields")]
     public List<Field>? Fields { get; set; }
+    
+    [BsonElement("generated")]
+    public bool IsGenerated { get; set; }
 }

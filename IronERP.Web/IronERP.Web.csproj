@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IronERP.Apps.CRM\IronERP.Apps.CRM.csproj" />
     <ProjectReference Include="..\IronERP.CommandLine\IronERP.CommandLine.csproj" />
     <ProjectReference Include="..\IronERP.Core\IronERP.Core.csproj" />
   </ItemGroup>

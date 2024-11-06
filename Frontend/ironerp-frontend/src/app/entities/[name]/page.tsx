@@ -22,6 +22,7 @@ import Redacted from "@/app/components/Redacted";
 import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {CubeTransparentIcon} from "@heroicons/react/24/solid";
+import {Column, Table2} from "@blueprintjs/table";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
@@ -139,50 +140,9 @@ export default function EntityDetail({ params }: { params: { name: string } })
                     <div className="-m-1.5 overflow-x-auto">
                         <div className="p-1.5 min-w-full inline-block align-middle">
                             <div className="border rounded-lg shadow overflow-hidden">
-                                <table className="min-w-full divide-y divide-gray-200 table-auto">
-                                    <thead>
-                                    <tr className="divide-x divide-gray-200">
-                                        {schema?.fields.map((field) => <>
-                                            <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
-                                                {field.name}
-                                            </th>
-                                        </>)}
-                                        <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase shrink">Actions</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody className="divide-y divide-gray-200">
-                                    { contents.map((item: any) => <>
-                                        <tr className="hover:bg-slate-50">
-                                            {schema?.fields.map(field => <>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                    {identifierColumnNames.includes(field.name.toLowerCase())? <>
-                                                        <a className="text-sky-600 font-bold" href={`/entities/${schema.name}/${item.id}`}>{item[field.name.toLowerCase()]}</a>
-                                                    </>:<>
-                                                        {(() => {
-                                                            let content = item[field.name.toLowerCase()];
-
-                                                            if(field.redacted) return <Redacted content={content} />;
-                                                            if(field.secret) return <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium bg-gray-800 text-white"><LockClosedIcon className="size-3 text-white" /> Secret</span>;
-
-                                                            return <>{content}</>;
-                                                        })()}
-                                                    </>}
-                                                </td>
-                                            </>)}
-                                            <td className = "px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                <a href={`/entities/${schema.name}/${item.id}/edit`} className = "py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 me-2 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                    <PencilIcon className = "h-3 w-3 text-white" / > Edit
-                                                </a>
-    
-                                                <a className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                    <TrashIcon className="h-3 w-3 text-white"/> Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </>)}
-                                    </tbody>
-                                </table>
+                                <Table2 numRows={contents.length}>
+                                    {schema?.fields.map(field => <Column name={field.name} />)}
+                                </Table2>
                             </div>
                         </div>
                     </div>
