@@ -14,7 +14,7 @@
  */
 
 import {useEffect, useState} from "react";
-import {ModelClient} from "@/lib/apiClient/ModelClient";
+import {ModelClient, SimpleModelList} from "@/lib/apiClient/ModelClient";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {
     ArrowPathIcon,
@@ -24,9 +24,10 @@ import {
 import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {HomeIcon} from "@heroicons/react/16/solid";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
+import {Popover, Tooltip} from "@blueprintjs/core";
 
 export default function Entities() {
-    const [items, setItems] = useState<string[]>([]);
+    const [items, setItems] = useState<SimpleModelList[]>([]);
     
     const [ error, setError ] = useState<Error | null>(null);
 
@@ -70,18 +71,29 @@ export default function Entities() {
                 {items.map(item => <>
                     <tr>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                            <a className="text-sky-600 font-bold" href={`/entities/${item}`}>{item}</a>
+                            <a className="text-sky-600 font-bold" href={`/entities/${item.name}`}>{item.name}</a>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                        {item.isGenerated? <>
+                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                                <Tooltip content="This is a model defined by an installed app. Internal models can't be directly edited.">
+                                    <span
+                                        className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-xs font-medium bg-gray-500 text-gray-100 cursor-help">Internal Model</span>
+                                </Tooltip>
+                            </td>
+                        </> : <>
+                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                             <button type="button"
-                                    className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 me-2 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                <PencilIcon className="h-3 w-3 text-white"/> Edit
-                            </button>
+                                        className="button intent-primary me-2">
+                                    <PencilIcon className="h-3 w-3 text-white"/> Edit
+                                </button>
 
-                            <button type="button" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                <TrashIcon className="h-3 w-3 text-white"/> Delete
-                            </button>
-                        </td>
+                                <button type="button"
+                                        className="button intent-danger">
+                                    <TrashIcon className="h-3 w-3 text-white"/> Delete
+                                </button>
+                            </td>
+                        </>}
+
                     </tr>
                 </>)}
                 </tbody>
@@ -99,7 +111,8 @@ export default function Entities() {
             </div>
         </>}
     </> : <>
-        <div className="bg-red-50 border-s-4 border-red-500 p-4 m-5 dark:bg-red-800/30 rounded-lg shadow-md" role="alert" aria-labelledby="hs-bordered-red-style-label">
+        <div className="bg-red-50 border-s-4 border-red-500 p-4 m-5 dark:bg-red-800/30 rounded-lg shadow-md"
+             role="alert" aria-labelledby="hs-bordered-red-style-label">
             <div className="flex">
                 <div className="shrink-0">
                     <span className="inline-flex justify-center items-center size-8 rounded-full border-4 border-red-100 bg-red-200 text-red-800 dark:border-red-900 dark:bg-red-800 dark:text-red-400">
@@ -130,31 +143,16 @@ export default function Entities() {
 
                         <div className="mt-5 flex lg:ml-4 lg:mt-0">
                             <span className="hidden sm:block">
-                                <button type="button" className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" onClick={loadData}>
+                                <button type="button" className="button intent-secondary" onClick={loadData}>
                                     <ArrowPathIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"/> Refresh
                                 </button>
                             </span>
 
                             <span className="sm:ml-3">
-                                <button type="button" className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                <button type="button" className="button intent-primary">
                                     <PlusIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5" /> New Model
                                 </button>
                             </span>
-                            
-                            <Menu as="div" className="relative ml-3 sm:hidden">
-                                <MenuButton className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
-                                    More <ChevronDownIcon aria-hidden="true" className="-mr-1 ml-1.5 h-5 w-5 text-gray-400" />
-                                </MenuButton>
-                            
-                            <MenuItems transition className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in">
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Edit</a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">View</a>
-                                </MenuItem>
-                            </MenuItems>
-                            </Menu>
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ public class CrudController<T>(ModelDaoFactory modelDaoFactory) : Controller whe
         if (items.Count > 0)
             return Ok(items);
 
-        return NotFound();
+        return NotFound(new {});
     }
 
     /// <summary>

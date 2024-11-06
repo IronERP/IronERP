@@ -11,7 +11,9 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
+using IronERP.Core.Attributes;
 using IronERP.Core.Util;
+using IronERP.Web.Data.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IronERP.Web.Controllers;
@@ -30,4 +32,20 @@ public class ConfigurationController : Controller
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public Task<IActionResult> Models() => Task.FromResult((IActionResult)Ok(AssemblyUtil.ListAllModels().Select(m => m.Name).ToList()));
+
+    /// <summary>
+    /// Returns a list of available model types
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public Task<IActionResult> ModelsV2()
+    {
+        var models = AssemblyUtil.ListAllModels();
+        var o = new List<SimpleModelSpec>();
+        
+        models.ForEach(m => o.Add(new() { Name = m.Name, IsGenerated = m.CustomAttributes.Any(a => a.AttributeType == typeof(NoEditModelAttribute))}));
+
+        return Task.FromResult<IActionResult>(Ok(o));
+    }
 }

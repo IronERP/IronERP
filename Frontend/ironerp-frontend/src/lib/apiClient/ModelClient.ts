@@ -13,12 +13,17 @@
 
 import {ApiClientCommon} from "@/lib/apiClient/ApiClientCommon";
 
+export interface SimpleModelList {
+    name: string;
+    isGenerated: boolean;
+}
+
 export class ModelClient {
     /**
      * Fetch a list of available models
      * @constructor
      */
-    public static async ListModels(): Promise<string[]> {
-        return await ApiClientCommon.FetchResourceList<string[]>("Configuration/Models");
+    public static async ListModels(): Promise<SimpleModelList[]> {
+        return await ApiClientCommon.FetchResourceList<SimpleModelList[]>("Configuration/ModelsV2");
     }
 }

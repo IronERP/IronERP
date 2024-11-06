@@ -11,6 +11,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
+using IronERP.Core.Attributes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -20,6 +21,7 @@ namespace IronERP.Core.Data;
 /// A generic representation of an entity for search
 /// </summary>
 [BsonIgnoreExtraElements]
+[NoGenerateCrud]
 public class GenericModel : IModel
 {
     [BsonId]

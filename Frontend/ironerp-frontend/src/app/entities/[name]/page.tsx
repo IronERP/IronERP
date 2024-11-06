@@ -17,11 +17,15 @@ import {useEffect, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import {ArrowPathIcon, ChevronDownIcon, PencilIcon, PlusIcon, TrashIcon} from "@heroicons/react/20/solid";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {HomeIcon, LockClosedIcon} from "@heroicons/react/16/solid";
+import {EyeSlashIcon, HomeIcon, LockClosedIcon} from "@heroicons/react/16/solid";
 import Redacted from "@/app/components/Redacted";
 import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {CubeTransparentIcon} from "@heroicons/react/24/solid";
+import {Cell, Column, Table2} from "@blueprintjs/table";
+import {AnchorButton, Button, NonIdealState} from "@blueprintjs/core";
+import {Layout} from "@blueprintjs/icons";
+import _ from "lodash";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
@@ -79,6 +83,27 @@ export default function EntityDetail({ params }: { params: { name: string } })
             current: true
         }
     ];
+    
+    const tableCellRenderer = (lineIndex: number, columnIndex: number) => {
+        if(contents.length >= lineIndex && schema.fields.length >= columnIndex) {
+            const row = contents[lineIndex];
+            const colField = schema.fields[columnIndex];
+            
+            if(colField.redacted) {
+                return <Cell className="bg-slate-600 text-white text-center font-black"><EyeSlashIcon className="m-0 p-0 size-3 inline" /> REDACTED</Cell>
+            }
+            
+            if (colField.secret) {
+                return <Cell className="bg-slate-700 text-white text-center font-black"><LockClosedIcon className="m-0 p-0 size-3 inline" /> SECRET</Cell>
+            }
+            
+            return <Cell interactive={true}>
+                <a href={`/entities/${schema?.name}/${row["id"]}`} className="text-sky-700">{row[_.camelCase(colField.name)]}</a>
+            </Cell>;
+        }
+        
+        return <Cell>Error</Cell>;
+    }
 
     return <>
         <header className="bg-white shadow">
@@ -98,14 +123,14 @@ export default function EntityDetail({ params }: { params: { name: string } })
                     <div className="mt-5 flex lg:ml-4 lg:mt-0">
                             <span className="hidden sm:block">
                                 <button type="button"
-                                        className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                        className="button intent-secondary">
                                     <ArrowPathIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"/> Refresh
                                 </button>
                             </span>
 
                         <span className="sm:ml-3">
                                 <a href={`/entities/${schema?.name}/new`}
-                                        className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                        className="button intent-primary">
                                     <PlusIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> New {schema?.name}
                                 </a>
                             </span>
@@ -139,50 +164,22 @@ export default function EntityDetail({ params }: { params: { name: string } })
                     <div className="-m-1.5 overflow-x-auto">
                         <div className="p-1.5 min-w-full inline-block align-middle">
                             <div className="border rounded-lg shadow overflow-hidden">
-                                <table className="min-w-full divide-y divide-gray-200 table-auto">
-                                    <thead>
-                                    <tr className="divide-x divide-gray-200">
-                                        {schema?.fields.map((field) => <>
-                                            <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
-                                                {field.name}
-                                            </th>
-                                        </>)}
-                                        <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase shrink">Actions</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody className="divide-y divide-gray-200">
-                                    { contents.map((item: any) => <>
-                                        <tr className="hover:bg-slate-50">
-                                            {schema?.fields.map(field => <>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                    {identifierColumnNames.includes(field.name.toLowerCase())? <>
-                                                        <a className="text-sky-600 font-bold" href={`/entities/${schema.name}/${item.id}`}>{item[field.name.toLowerCase()]}</a>
-                                                    </>:<>
-                                                        {(() => {
-                                                            let content = item[field.name.toLowerCase()];
-
-                                                            if(field.redacted) return <Redacted content={content} />;
-                                                            if(field.secret) return <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium bg-gray-800 text-white"><LockClosedIcon className="size-3 text-white" /> Secret</span>;
-
-                                                            return <>{content}</>;
-                                                        })()}
-                                                    </>}
-                                                </td>
-                                            </>)}
-                                            <td className = "px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                <a href={`/entities/${schema.name}/${item.id}/edit`} className = "py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 me-2 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                    <PencilIcon className = "h-3 w-3 text-white" / > Edit
-                                                </a>
-    
-                                                <a className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                    <TrashIcon className="h-3 w-3 text-white"/> Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </>)}
-                                    </tbody>
-                                </table>
+                                {(contents.length > 0)? <>
+                                    <Table2 numRows={contents.length}>
+                                        {schema?.fields.map(field =>
+                                            <Column name={field.name} cellRenderer={tableCellRenderer} />
+                                        )}
+                                    </Table2>
+                                </> : <>
+                                    <div className="py-4">
+                                        <NonIdealState 
+                                            icon="search" 
+                                            title="Nothing Found" 
+                                            description={`You don't have any instances of ${schema?.name} yet. You can go ahead and create one now.`}
+                                            action={<AnchorButton href={`/entities/${schema?.name}/new`} outlined={true} text={`Create a new ${schema?.name}`} icon="plus" intent="primary"  />} 
+                                            layout="horizontal"/>
+                                    </div>
+                                </>}
                             </div>
                         </div>
                     </div>

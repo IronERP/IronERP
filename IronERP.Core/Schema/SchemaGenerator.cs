@@ -12,6 +12,7 @@
  */
 
 using System.ComponentModel.DataAnnotations;
+using IronERP.Core.Attributes;
 
 namespace IronERP.Core.Schema;
 
@@ -28,7 +29,8 @@ public class SchemaGenerator
         {
             Name = type.Name,
             Namespace = type.Namespace,
-            Fields = []
+            Fields = [],
+            IsGenerated = type.CustomAttributes.Any(a => a.AttributeType == typeof(NoEditModelAttribute))
         };
 
         foreach (var field in type.GetProperties())

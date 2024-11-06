@@ -15,12 +15,15 @@
 
 import {ReactElement} from "react";
 import {ChevronRightIcon, CubeTransparentIcon} from "@heroicons/react/24/solid";
+import {BlueprintIcons_16Id} from "@blueprintjs/icons/lib/esnext/generated/16px/blueprint-icons-16";
+import {Icon} from "@blueprintjs/core";
 
 export interface BreadcrumbItem {
     name: string;
     icon?: ReactElement | null;
     href?: string | null;
     current: boolean;
+    bpicon?: BlueprintIcons_16Id | undefined;
 }
 
 export default function Breadcrumbs( { items }: { items: BreadcrumbItem[] }) {
@@ -36,8 +39,9 @@ export default function Breadcrumbs( { items }: { items: BreadcrumbItem[] }) {
                     </> : <>
                         <li className="inline-flex items-center">
                             <a className="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600"
-                               href={item.href}>
+                               href={item.href ?? "#"}>
                                 {item.icon}
+                                {item.bpicon == undefined? <></>:<Icon className="me-2" size={14} icon={item.bpicon} />}
                                 {item.name}
                             </a>
                             <ChevronRightIcon className="shrink-0 mx-2 size-4 text-gray-400"/>
