@@ -25,6 +25,7 @@ import Redacted from "@/app/components/Redacted";
 import ConfirmDialog from "@/app/components/ConfirmDialog";
 import {Intent} from "@/lib/etc/utils";
 import {useRouter} from "next/navigation";
+import _ from "lodash";
 
 export default function EditPage({ params }: { params: { id: string, name: string } }) {
     const [ item, setItem ] = useState<any | null>(null);
@@ -132,15 +133,15 @@ export default function EditPage({ params }: { params: { id: string, name: strin
                             <div className="border rounded-lg shadow overflow-hidden">
                                 <div className="p-4 space-y-3">
                                     <dl className={`grid grid-cols-${columns} gap-4`}>
-                                        {schema.fields.map(field => {
+                                        {schema.fields.filter(f => item[_.camelCase(f.name)] != null && item[_.camelCase(f.name)] != "").map(field => {
                                             return <>
                                                 {displayType? <>
                                                     <div>
-                                                        <dt className="font-black text-lg">{field.name}</dt>
+                                                        <dt className="font-black text-lg">{field.label}</dt>
                                                         <dd>
                                                             {field.secret? <><span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium bg-gray-800 text-white"><LockClosedIcon className="size-3 text-white"/> Secret</span></> : <></>}
-                                                            {field.redacted? <><Redacted content={item[field.name.toLowerCase()]} /></>:<></>}
-                                                            {(!field.secret && !field.redacted)? <>{item[field.name.toLowerCase()]}</>:<></>}
+                                                            {field.redacted? <><Redacted content={item[_.camelCase(field.name)]} /></>:<></>}
+                                                            {(!field.secret && !field.redacted)? <>{item[_.camelCase(field.name)]}</>:<></>}
                                                         </dd>
                                                     </div>
                                                 </> : <>

@@ -17,12 +17,15 @@ import {useEffect, useState} from "react";
 import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import {ArrowPathIcon, ChevronDownIcon, PencilIcon, PlusIcon, TrashIcon} from "@heroicons/react/20/solid";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {HomeIcon, LockClosedIcon} from "@heroicons/react/16/solid";
+import {EyeSlashIcon, HomeIcon, LockClosedIcon} from "@heroicons/react/16/solid";
 import Redacted from "@/app/components/Redacted";
 import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {CubeTransparentIcon} from "@heroicons/react/24/solid";
-import {Column, Table2} from "@blueprintjs/table";
+import {Cell, Column, Table2} from "@blueprintjs/table";
+import {AnchorButton, Button, NonIdealState} from "@blueprintjs/core";
+import {Layout} from "@blueprintjs/icons";
+import _ from "lodash";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
@@ -80,6 +83,27 @@ export default function EntityDetail({ params }: { params: { name: string } })
             current: true
         }
     ];
+    
+    const tableCellRenderer = (lineIndex: number, columnIndex: number) => {
+        if(contents.length >= lineIndex && schema.fields.length >= columnIndex) {
+            const row = contents[lineIndex];
+            const colField = schema.fields[columnIndex];
+            
+            if(colField.redacted) {
+                return <Cell className="bg-slate-600 text-white text-center font-black"><EyeSlashIcon className="m-0 p-0 size-3 inline" /> REDACTED</Cell>
+            }
+            
+            if (colField.secret) {
+                return <Cell className="bg-slate-700 text-white text-center font-black"><LockClosedIcon className="m-0 p-0 size-3 inline" /> SECRET</Cell>
+            }
+            
+            return <Cell interactive={true}>
+                <a href={`/entities/${schema?.name}/${row["id"]}`} className="text-sky-700">{row[_.camelCase(colField.name)]}</a>
+            </Cell>;
+        }
+        
+        return <Cell>Error</Cell>;
+    }
 
     return <>
         <header className="bg-white shadow">
@@ -140,9 +164,22 @@ export default function EntityDetail({ params }: { params: { name: string } })
                     <div className="-m-1.5 overflow-x-auto">
                         <div className="p-1.5 min-w-full inline-block align-middle">
                             <div className="border rounded-lg shadow overflow-hidden">
-                                <Table2 numRows={contents.length}>
-                                    {schema?.fields.map(field => <Column name={field.name} />)}
-                                </Table2>
+                                {(contents.length > 0)? <>
+                                    <Table2 numRows={contents.length}>
+                                        {schema?.fields.map(field =>
+                                            <Column name={field.name} cellRenderer={tableCellRenderer} />
+                                        )}
+                                    </Table2>
+                                </> : <>
+                                    <div className="py-4">
+                                        <NonIdealState 
+                                            icon="search" 
+                                            title="Nothing Found" 
+                                            description={`You don't have any instances of ${schema?.name} yet. You can go ahead and create one now.`}
+                                            action={<AnchorButton href={`/entities/${schema?.name}/new`} outlined={true} text={`Create a new ${schema?.name}`} icon="plus" intent="primary"  />} 
+                                            layout="horizontal"/>
+                                    </div>
+                                </>}
                             </div>
                         </div>
                     </div>

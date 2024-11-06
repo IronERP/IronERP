@@ -16,6 +16,7 @@ namespace IronERP.Core.Schema;
 /// <summary>
 /// Marks a field as included in search
 /// </summary>
+/// [AttributeUsage(AttributeTargets.Property)]
 public class SearchAttribute : Attribute
 {
     
