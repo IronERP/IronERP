@@ -83,12 +83,12 @@ export default function Entities() {
                         </> : <>
                             <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                             <button type="button"
-                                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 me-2 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                        className="button intent-primary me-2">
                                     <PencilIcon className="h-3 w-3 text-white"/> Edit
                                 </button>
 
                                 <button type="button"
-                                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                        className="button intent-danger">
                                     <TrashIcon className="h-3 w-3 text-white"/> Delete
                                 </button>
                             </td>
@@ -143,31 +143,16 @@ export default function Entities() {
 
                         <div className="mt-5 flex lg:ml-4 lg:mt-0">
                             <span className="hidden sm:block">
-                                <button type="button" className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" onClick={loadData}>
+                                <button type="button" className="button intent-secondary" onClick={loadData}>
                                     <ArrowPathIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"/> Refresh
                                 </button>
                             </span>
 
                             <span className="sm:ml-3">
-                                <button type="button" className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                <button type="button" className="button intent-primary">
                                     <PlusIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5" /> New Model
                                 </button>
                             </span>
-                            
-                            <Menu as="div" className="relative ml-3 sm:hidden">
-                                <MenuButton className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
-                                    More <ChevronDownIcon aria-hidden="true" className="-mr-1 ml-1.5 h-5 w-5 text-gray-400" />
-                                </MenuButton>
-                            
-                            <MenuItems transition className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in">
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">Edit</a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">View</a>
-                                </MenuItem>
-                            </MenuItems>
-                            </Menu>
                         </div>
                     </div>
                 </div>

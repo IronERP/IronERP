@@ -106,14 +106,14 @@ export default function EditPage({ params }: { params: { id: string, name: strin
                     <div className="mt-5 flex lg:ml-4 lg:mt-0">
                             <span className="sm:ml-3">
                                 <a href={`/entities/${params.name}/${params.id}/edit`}
-                                   className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                   className="button intent-primary">
                                     <PencilIcon aria-hidden="true" className="-ml-0.5 mr-1.5 size-4"/> Edit
                                 </a>
                             </span>
 
                         <span className="sm:ml-3">
                                 <button type="button" onClick={() => setDeleteDialogShown(true)}
-                                        className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                        className="button intent-danger">
                                     <TrashIcon aria-hidden="true" className="-ml-0.5 mr-1.5 size-4"/> Delete 
                                 </button>
                             </span>
