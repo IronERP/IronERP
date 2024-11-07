@@ -26,6 +26,9 @@ import ConfirmDialog from "@/app/components/ConfirmDialog";
 import {Intent} from "@/lib/etc/utils";
 import {useRouter} from "next/navigation";
 import _ from "lodash";
+import PageHeader from "@/app/components/common/PageHeader";
+import Button from "@/app/components/common/Button";
+import PageContainer from "@/app/components/common/PageContainer";
 
 export default function EditPage({ params }: { params: { id: string, name: string } }) {
     const [ item, setItem ] = useState<any | null>(null);
@@ -84,81 +87,40 @@ export default function EditPage({ params }: { params: { id: string, name: strin
     
     if(item == null || schema == null) return <FullscreenLoader />;
     
+    const headerButtons = <>
+        <Button label="Edit" intent="primary" icon="edit" isAnchor={true} href={`/entities/${params.name}/${params.id}/edit`} className="me-2 inline-block" />
+        <Button label="Delete" intent="danger" icon="trash" onClick={() => setDeleteDialogShown(true)} className="ms-2" />
+    </>;
+    
     return <>
         <ConfirmDialog title="Are you sure?" message={`Do you really want to delete the ${params.name} "${item?.name}"?`} intent={Intent.DANGER} confirmButtonText="Delete" cancelButtonText="Cancel" icon={<TrashIcon />} isVisible={deleteDialogShown} setIsVisible={setDeleteDialogShown} onConfirm={onDeleteConfirm} />
         
-        <header className="bg-white shadow">
-            <Breadcrumbs items={breadcrumbs}/>
+        <PageHeader title={item?.name} subtitle={`ID: ${params.id}`} breadcrumbItems={breadcrumbs} buttons={headerButtons} />
 
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <div className="lg:flex lg:items-center lg:justify-between">
-                    <div className="min-w-0 flex-1">
-                        <h2 className="text-2xl leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                            {params.name}: <span className="font-bold">{item?.name}</span>
-                        </h2>
-                        <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-                            <div className="mt-2 flex items-center text-sm text-gray-500">
-                                <span>ID: {params.id}</span>
+        <PageContainer>
+            <dl className={`grid grid-cols-${columns} gap-4`}>
+                {schema.fields.filter(f => item[_.camelCase(f.name)] != null && item[_.camelCase(f.name)] != "").map(field => {
+                    return <>
+                        {displayType ? <>
+                            <div>
+                                <dt className="font-black text-lg">{field.label}</dt>
+                                <dd>
+                                    {field.secret ? <><span
+                                        className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium bg-gray-800 text-white"><LockClosedIcon
+                                        className="size-3 text-white"/> Secret</span></> : <></>}
+                                    {field.redacted ? <><Redacted content={item[_.camelCase(field.name)]}/></> : <></>}
+                                    {(!field.secret && !field.redacted) ? <>{item[_.camelCase(field.name)]}</> : <></>}
+                                </dd>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-5 flex lg:ml-4 lg:mt-0">
-                            <span className="sm:ml-3">
-                                <a href={`/entities/${params.name}/${params.id}/edit`}
-                                   className="button intent-primary">
-                                    <PencilIcon aria-hidden="true" className="-ml-0.5 mr-1.5 size-4"/> Edit
-                                </a>
-                            </span>
-
-                        <span className="sm:ml-3">
-                                <button type="button" onClick={() => setDeleteDialogShown(true)}
-                                        className="button intent-danger">
-                                    <TrashIcon aria-hidden="true" className="-ml-0.5 mr-1.5 size-4"/> Delete 
-                                </button>
-                            </span>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main>
-            {/*Experimental!*/}
-            {/*<input type="number" value={columns} onChange={e => setColumns(e.target.value)}/>*/}
-            {/*<input type="checkbox" value={displayType} onChange={() => setDisplayType(!displayType)} />*/}
-            
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <div className="flex flex-col">
-                    <div className="-m-1.5 overflow-x-auto">
-                        <div className="p-1.5 min-w-full inline-block align-middle">
-                            <div className="border rounded-lg shadow overflow-hidden">
-                                <div className="p-4 space-y-3">
-                                    <dl className={`grid grid-cols-${columns} gap-4`}>
-                                        {schema.fields.filter(f => item[_.camelCase(f.name)] != null && item[_.camelCase(f.name)] != "").map(field => {
-                                            return <>
-                                                {displayType? <>
-                                                    <div>
-                                                        <dt className="font-black text-lg">{field.label}</dt>
-                                                        <dd>
-                                                            {field.secret? <><span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium bg-gray-800 text-white"><LockClosedIcon className="size-3 text-white"/> Secret</span></> : <></>}
-                                                            {field.redacted? <><Redacted content={item[_.camelCase(field.name)]} /></>:<></>}
-                                                            {(!field.secret && !field.redacted)? <>{item[_.camelCase(field.name)]}</>:<></>}
-                                                        </dd>
-                                                    </div>
-                                                </> : <>
-                                                    <dt className="font-black text-lg">{field.name}</dt>
-                                                    <dd>
-                                                        {item[field.name.toLowerCase()]}
-                                                    </dd>
-                                                </>}
-                                            </>
-                                        })}
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+                        </> : <>
+                            <dt className="font-black text-lg">{field.name}</dt>
+                            <dd>
+                                {item[field.name.toLowerCase()]}
+                            </dd>
+                        </>}
+                    </>
+                })}
+            </dl>
+        </PageContainer>
     </>
 }

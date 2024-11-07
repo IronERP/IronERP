@@ -27,24 +27,24 @@ export interface BreadcrumbItem {
 }
 
 export default function Breadcrumbs( { items }: { items: BreadcrumbItem[] }) {
-    return <div className="border-y border-gray-200">
+    return <div className="border-y border-gray-200 dark:border-gray-800">
         <ol className="flex mx-auto max-w-7xl px-8 items-center whitespace-nowrap p-2">
 
             {items.map((item) => {
                 return <>{item.current? <>
-                        <li className="inline-flex items-center text-sm font-semibold text-gray-800 truncate"
+                        <li className="inline-flex items-center text-sm font-semibold text-gray-800 dark:text-gray-200 truncate"
                             aria-current="page">
                             {item.name}
                         </li>
                     </> : <>
                         <li className="inline-flex items-center">
-                            <a className="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+                            <a className="flex items-center text-sm text-gray-500 dark:text-gray-300 hover:text-blue-600 focus:outline-none focus:text-blue-600"
                                href={item.href ?? "#"}>
                                 {item.icon}
                                 {item.bpicon == undefined? <></>:<Icon className="me-2" size={14} icon={item.bpicon} />}
                                 {item.name}
                             </a>
-                            <ChevronRightIcon className="shrink-0 mx-2 size-4 text-gray-400"/>
+                            <ChevronRightIcon className="shrink-0 mx-2 size-4 text-gray-400 dark:text-gray-300"/>
                         </li>
                 </>
                 }</>

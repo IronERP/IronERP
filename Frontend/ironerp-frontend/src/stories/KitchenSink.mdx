@@ -1,0 +1,174 @@
+import Button from "../app/components/common/Button";
+import Alert from "../app/components/common/Alert";
+import PageHeader from "../app/components/common/PageHeader";
+import Badge from "../app/components/common/Badge";
+
+# Kitchen Sink
+
+## Buttons
+
+### Light
+
+<div className="sb-unstyled">
+    <Button intent="primary" label="Primary" icon="home" />
+    <Button intent="secondary" label="Secondary" icon="refresh" />
+    <Button intent="default" label="Default" icon="circle" />
+    <Button intent="success" label="Success" icon="confirm" />
+    <Button intent="warning" label="Warning" icon="warning-sign" />
+    <Button intent="danger" label="Danger" icon="error" />
+    
+    <hr/>
+    
+    <Button intent="primary" label="XS" icon="home" size="xs" />
+    <br/>
+    <Button intent="primary" label="SM" icon="home" size="sm" className="mt-2" />
+</div>
+
+### Dark
+
+<div className="sb-unstyled dark bg-slate-800 p-2">
+    <Button intent="primary" label="Primary" icon="home" />
+    <Button intent="secondary" label="Secondary" icon="refresh" />
+    <Button intent="default" label="Default" icon="circle" />
+    <Button intent="success" label="Success" icon="confirm" />
+    <Button intent="warning" label="Warning" icon="warning-sign" />
+    <Button intent="danger" label="Danger" icon="error" />
+</div> 
+
+## Alerts
+
+### Light
+
+<div className="sb-unstyled">
+    <Alert content="This is a primary alert" intent="primary" icon="info-sign" dismissable={false} title="Primary Alert" />
+    <Alert content="This is a secondary alert" intent="secondary" icon="refresh" dismissable={false} title="Secondary Alert" />
+    <Alert content="This is a default alert" intent="default" icon="circle" dismissable={false} title="Default Alert" />
+    <Alert content="This is a success alert" intent="success" icon="confirm" dismissable={false} title="Success Alert" />
+    <Alert content="This is a warning alert" intent="warning" icon="warning-sign" dismissable={false} title="Warning Alert" />
+    <Alert content="This is a danger alert" intent="danger" icon="error" dismissable={false} title="Danger Alert" />
+</div>
+
+### Dark
+
+<div className="sb-unstyled dark bg-slate-800 p-2">
+    <Alert content="This is a primary alert" intent="primary" icon="info-sign" dismissable={false} title="Primary Alert" />
+    <Alert content="This is a secondary alert" intent="secondary" icon="refresh" dismissable={false} title="Secondary Alert" />
+    <Alert content="This is a default alert" intent="default" icon="circle" dismissable={false} title="Default Alert" />
+    <Alert content="This is a success alert" intent="success" icon="confirm" dismissable={false} title="Success Alert" />
+    <Alert content="This is a warning alert" intent="warning" icon="warning-sign" dismissable={false} title="Warning Alert" />
+    <Alert content="This is a danger alert" intent="danger" icon="error" dismissable={false} title="Danger Alert" />
+</div>
+
+## Title-less Alerts
+
+### Light
+
+<div className="sb-unstyled">
+    <Alert content="This is a primary alert" intent="primary" icon="info-sign" dismissable={false} />
+    <Alert content="This is a secondary alert" intent="secondary" icon="refresh" dismissable={false} />
+    <Alert content="This is a default alert" intent="default" icon="circle" dismissable={false} />
+    <Alert content="This is a success alert" intent="success" icon="confirm" dismissable={false} />
+    <Alert content="This is a warning alert" intent="warning" icon="warning-sign" dismissable={false} />
+    <Alert content="This is a danger alert" intent="danger" icon="error" dismissable={false} />
+</div>
+
+### Dark
+
+<div className="sb-unstyled dark bg-slate-800 p-2">
+    <Alert content="This is a primary alert" intent="primary" icon="info-sign" dismissable={false} />
+    <Alert content="This is a secondary alert" intent="secondary" icon="refresh" dismissable={false} />
+    <Alert content="This is a default alert" intent="default" icon="circle" dismissable={false} />
+    <Alert content="This is a success alert" intent="success" icon="confirm" dismissable={false} />
+    <Alert content="This is a warning alert" intent="warning" icon="warning-sign" dismissable={false} />
+    <Alert content="This is a danger alert" intent="danger" icon="error" dismissable={false} />
+</div>
+
+## Badges
+
+## Light
+
+<div className="sb-unstyled">
+    <Badge text="Primary" secondText="with secondary" intent="primary" icon="plus" />
+    <Badge text="Default" secondText="with secondary" intent="default" icon="circle" />
+    <Badge text="Secondary" secondText="with secondary" intent="secondary" icon="minus" />
+    <Badge text="Success" secondText="with secondary" intent="success" icon="confirm" />
+    <Badge text="Warning" secondText="with secondary" intent="warning" icon="warning-sign" />
+    <Badge text="Danger" secondText="with secondary" intent="danger" icon="error" />
+</div>
+
+## Dark
+
+<div className="sb-unstyled dark bg-slate-800 p-2">
+    <Badge text="Primary" secondText="with secondary" intent="primary" icon="plus" />
+    <Badge text="Default" secondText="with secondary" intent="default" icon="circle" />
+    <Badge text="Secondary" secondText="with secondary" intent="secondary" icon="minus" />
+    <Badge text="Success" secondText="with secondary" intent="success" icon="confirm" />
+    <Badge text="Warning" secondText="with secondary" intent="warning" icon="warning-sign" />
+    <Badge text="Danger" secondText="with secondary" intent="danger" icon="error" />
+</div>
+
+# Blocks
+
+## Page Header
+
+<div className="sb-unstyled">
+    <PageHeader 
+        title="Page Header" 
+        subtitle="Page header subtitle" 
+        buttons={<>
+            <Button label="Refresh" intent="default" icon="refresh" />
+            <Button label="Add New" intent="primary" icon="plus" />
+        </>}
+        breadcrumbItems={[
+            {
+                name: "Home",
+                href: "",
+                bpicon: "home",
+                current: false
+            },
+            {
+                name: "Components",
+                href: "",
+                bpicon: "widget",
+                current: false
+            },
+            {
+                name: "Breadcrumbs",
+                href: "",
+                current: true
+            }
+        ]}
+    />    
+</div>
+
+# Dark Page Header
+
+<div className="sb-unstyled dark bg-slate-800 p-2">
+    <PageHeader
+        title="Page Header"
+        subtitle="Page header subtitle"
+        buttons={<>
+            <Button label="Refresh" intent="default" icon="refresh" />
+            <Button label="Add New" intent="primary" icon="plus" />
+        </>}
+        breadcrumbItems={[
+            {
+                name: "Home",
+                href: "",
+                bpicon: "home",
+                current: false
+            },
+            {
+                name: "Components",
+                href: "",
+                bpicon: "widget",
+                current: false
+            },
+            {
+                name: "Breadcrumbs",
+                href: "",
+                current: true
+            }
+        ]}
+    />
+</div>

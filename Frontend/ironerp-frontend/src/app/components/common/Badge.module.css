@@ -1,0 +1,75 @@
+.badge {
+    @apply bg-default shadow-sm border border-default-d inline rounded py-1 px-2 text-default-t;
+}
+
+:global(.dark) .badge {
+    @apply bg-slate-500 border-slate-600 text-white;
+}
+
+.hasAddon {
+    @apply rounded-r-none;
+}
+
+.addon {
+    @apply inline rounded rounded-l-none py-1 px-2 border border-l-0;
+}
+
+:global(.dark) .addon {
+    @apply bg-slate-200 border-slate-600 text-slate-600;
+}
+
+.primary {
+    @apply bg-primary border-primary-d text-default;
+}
+
+:global(.dark) .primary {
+    @apply bg-primary text-white border-primary-d;
+}
+
+.addon.primary {
+    @apply bg-primary-el text-primary-t;
+}
+
+.secondary {
+    @apply bg-secondary-d border-secondary-dd;
+}
+
+.addon.secondary {
+    @apply bg-secondary border-secondary-dd;
+}
+
+.success {
+    @apply bg-success border-success-d text-default;
+}
+
+:global(.dark) .success {
+    @apply bg-success border-success-d text-default;
+}
+
+.addon.success {
+    @apply bg-success-el text-success-t;
+}
+
+.warning {
+    @apply bg-warning border-warning-d text-slate-700;
+}
+
+:global(.dark) .warning {
+    @apply bg-warning border-warning-d text-slate-700;
+}
+
+.addon.warning {
+    @apply bg-warning-el border-warning-d text-warning-t;
+}
+
+.danger {
+    @apply bg-danger border-danger-d text-default;
+}
+
+:global(.dark) .danger {
+    @apply bg-danger border-danger-d text-default;
+}
+
+.addon.danger {
+    @apply bg-danger-el border-danger-d text-danger;
+}

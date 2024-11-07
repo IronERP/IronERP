@@ -6,3 +6,11 @@ export enum Intent {
     DANGER = 'danger',
     DEFAULT = 'default',
 }
+
+export function classList(classLs: string[]): string {
+    let classes: string = "";
+    
+    classLs.map(cls => classes += ` ${cls}`);
+    
+    return classes;
+}

@@ -77,7 +77,7 @@ export default function Searcher() {
     }
     
     return <>
-        <input type="text" ref={searchFieldRef} className="bg-gradient-to-b from-slate-50 to-slate-100 rounded-md me-4 placeholder-slate-400 w-80"
+        <input type="text" ref={searchFieldRef} className="search-input"
                placeholder="Search..." onChange={e => doSearch(e.target.value)}  onBlur={debounceBlur} onFocus={() => setResultsVisible(true)} />
         
         <div ref={dialogRef} className={`absolute w-80 top-20 right-96 bg-gradient-to-b from-slate-50 to-slate-100 rounded-md shadow-xl border border-slate-200 p-4 ${resultsVisible? "" : "hidden"}`}>

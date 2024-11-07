@@ -16,11 +16,15 @@
     "@blueprintjs/table": "^5.2.2",
     "@headlessui/react": "^2.1.9",
     "@heroicons/react": "^2.1.5",
+    "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
+    "autoprefixer": "^10.4.20",
     "lodash": "^4.17.21",
     "next": "14.2.14",
+    "postcss-nesting": "^13.0.1",
     "preline": "^2.5.0",
     "react": "^18",
     "react-dom": "^18",
+    "sass": "^1.80.6",
     "ts-pattern": "^5.5.0"
   },
   "devDependencies": {

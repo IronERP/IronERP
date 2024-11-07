@@ -22,19 +22,21 @@ import {CubeTransparentIcon} from "@heroicons/react/24/solid";
 import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {useRouter} from "next/navigation";
 import EntityEditor, {EntityEditorRef} from "@/app/components/entityEditor";
+import Button from "@/app/components/common/Button";
+import PageHeader from "@/app/components/common/PageHeader";
 
 export default function EditPage({ params }: { params: { id: string, name: string } }) {
-    const [ item, setItem ] = useState<any | null>(null);
-    const [ schema, setSchema ] = useState<ModelSchema | null>(null);
-    const [ isChanged, setIsChanged ] = useState<boolean>(false);
-    const [ originalState, setOriginalState ] = useState<string | null>(null);
-    const [ isLoading, setIsLoading ] = useState<boolean>(false);
-    const [ error, setError ] = useState<string | null>(null);
-    
+    const [item, setItem] = useState<any | null>(null);
+    const [schema, setSchema] = useState<ModelSchema | null>(null);
+    const [isChanged, setIsChanged] = useState<boolean>(false);
+    const [originalState, setOriginalState] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
     const router = useRouter();
 
     const editorRef = useRef<EntityEditorRef>(null);
-    
+
     useEffect(() => {
         SchemaClient.LoadGenericObject(params.name, params.id)
             .then(data => {
@@ -42,32 +44,32 @@ export default function EditPage({ params }: { params: { id: string, name: strin
                 setOriginalState(JSON.stringify(data));
             })
             .catch(console.error);
-        
+
         SchemaClient.LoadSchema(params.name)
             .then(setSchema)
             .catch(console.error);
     }, []);
-    
+
     useEffect(() => {
         console.log("Original state: ", originalState);
         console.log("Current state: ", JSON.stringify(item));
-        
-        if(!isOriginalState()) setIsChanged(true);
+
+        if (!isOriginalState()) setIsChanged(true);
         else setIsChanged(false);
-    }, [ item ])
-    
+    }, [item])
+
     const isOriginalState = () => originalState === JSON.stringify(item);
-    
+
     const submit = () => {
         setIsLoading(true);
         setError(null);
-        if(editorRef.current?.validateForm()) {
+        if (editorRef.current?.validateForm()) {
             SchemaClient.PutGenericObject(params.name, item)
                 .then(() => router.push(`/entities/${params.name}/${params.id}`))
                 .catch(console.error);
         }
     }
-    
+
     const breadcrumbs: BreadcrumbItem[] = [
         {
             name: "Home",
@@ -92,11 +94,34 @@ export default function EditPage({ params }: { params: { id: string, name: strin
             current: true
         }
     ];
-    
-    if(item != null) {
+
+    const headerButtons = <>
+
+    </>;
+
+    // <span className="sm:ml-3">
+    //                                 <button type="button"
+    //                                         disabled={!isChanged}
+    //                                         onClick={submit}
+    //                                         className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+    //                                     <InboxArrowDownIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Save 
+    //                                 </button>
+    //                             </span>
+    // 
+    //                             <span className="sm:ml-3">
+    //                                 <button type="button"
+    //                                         className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+    //                                     <TrashIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Delete 
+    //                                 </button>
+    //                             </span>
+
+    if (item != null) {
         return <>
+            <PageHeader title={`${params.name}: ${item.name}`} subtitle={`ID: ${params.id}`}
+                        breadcrumbItems={breadcrumbs}/>
+
             <header className="bg-white shadow">
-                <Breadcrumbs items={breadcrumbs} />
+                <Breadcrumbs items={breadcrumbs}/>
 
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <div className="lg:flex lg:items-center lg:justify-between">
@@ -114,21 +139,7 @@ export default function EditPage({ params }: { params: { id: string, name: strin
                         </div>
 
                         <div className="mt-5 flex lg:ml-4 lg:mt-0">
-                            <span className="sm:ml-3">
-                                <button type="button"
-                                        disabled={!isChanged}
-                                        onClick={submit}
-                                        className="inline-flex  disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed items-center rounded-md bg-white-600 border border-green-500 text-green-500 px-3 py-2 text-sm font-semibold shadow-sm hover:border-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    <InboxArrowDownIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Save 
-                                </button>
-                            </span>
 
-                            <span className="sm:ml-3">
-                                <button type="button"
-                                        className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    <TrashIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5"/> Delete 
-                                </button>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -141,8 +152,9 @@ export default function EditPage({ params }: { params: { id: string, name: strin
                                 <div className="border rounded-lg shadow overflow-hidden">
                                     <div className="p-2 space-y-3">
                                         <EntityEditor isLoading={isLoading} schema={schema} values={item}
-                                                      setValues={setItem} mode='edit' onStateChanged={b => setIsChanged(b)}
-                                                      ref={editorRef} />
+                                                      setValues={setItem} mode='edit'
+                                                      onStateChanged={b => setIsChanged(b)}
+                                                      ref={editorRef}/>
                                     </div>
                                 </div>
                             </div>

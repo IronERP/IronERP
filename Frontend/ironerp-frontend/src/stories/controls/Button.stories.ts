@@ -18,6 +18,14 @@ export const Primary: Story = {
     }
 }
 
+export const Default: Story = {
+    args: {
+        label: "Default Button",
+        intent: "default",
+        icon: "circle"
+    }
+}
+
 export const Secondary: Story = {
     args: {
         label: "Secondary Button",

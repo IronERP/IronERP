@@ -1,0 +1,76 @@
+.alert {
+    @apply border rounded p-2 mb-2;
+}
+
+.alert .icon {
+    margin-right: 0.5rem;
+}
+
+.primary {
+    @apply text-primary-t border-primary bg-primary-el;
+}
+
+.secondary {
+    @apply text-secondary-t border-secondary-dd bg-secondary;
+}
+
+:global(.dark) .secondary {
+    @apply bg-slate-500 border-slate-600 text-white;
+}
+
+.success {
+    @apply bg-success-el border-success text-success-t;
+}
+
+.warning {
+    @apply bg-warning-el text-warning-t border-warning-d;
+}
+
+.danger {
+    @apply bg-danger-el border-danger-d text-danger-t;
+}
+
+.default {
+    @apply text-default-t bg-default border-default-d;
+}
+
+:global(.dark) .default {
+    @apply bg-slate-300 border-slate-500;
+}
+
+.title {
+    @apply -m-2 p-2 mb-2 text-white;
+}
+
+.primary .title {
+    @apply bg-primary;
+}
+
+.secondary .title {
+    /*@apply bg-slate-500 border-slate-500;*/
+    @apply bg-secondary-dd text-secondary-t;
+}
+
+:global(.dark) .secondary .title {
+    @apply bg-slate-600 text-white;
+}
+
+.success .title {
+    @apply bg-success;
+}
+
+.warning .title {
+    @apply bg-warning-d text-slate-800;
+}
+
+.danger .title {
+    @apply bg-danger-d;
+}
+
+.default .title {
+    @apply bg-default-m text-default-t;
+}
+
+:global(.dark) .default .title {
+    @apply bg-slate-500 text-white;
+}

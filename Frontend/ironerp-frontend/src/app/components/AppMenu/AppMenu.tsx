@@ -10,7 +10,7 @@ export default function AppMenu() {
     
     return <>
         {/* Menubar Button */}
-        <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-4 py-2 rounded" onClick={toggleShown} title="App Menu">
+        <a className="nav-link" onClick={toggleShown} title="App Menu">
             <Squares2X2Icon className="size-6 inline"/>
         </a>
         
