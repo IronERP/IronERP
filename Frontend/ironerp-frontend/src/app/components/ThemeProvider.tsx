@@ -1,3 +1,5 @@
+"use client";
+
 /*
  * This file is part of IronERP.
  * 
@@ -11,26 +13,13 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-.pageHeaderWrapper {
-    @apply bg-white shadow;
+import {ThemeProvider as NextThemeProvider, ThemeProviderProps} from "next-themes";
+import {ReactNode} from "react";
+
+interface Props extends ThemeProviderProps {
+    children: ReactNode
 }
 
-:global(.dark) .pageHeaderWrapper {
-    @apply bg-gradient-to-b from-slate-700 to-slate-800;
-}
-
-.pageHeader {
-    @apply mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8;
-}
-
-:global(.dark) .pageHeader h2 {
-    @apply text-default;
-}
-
-:global(.dark) .subtitle {
-    @apply text-gray-100;
-}
-
-.subtitle {
-    @apply mt-2 flex items-center text-sm text-gray-500;
+export default function ThemeProvider({ children, ...props }: Props) {
+    return <NextThemeProvider {...props}>{children}</NextThemeProvider>
 }

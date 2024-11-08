@@ -6736,6 +6736,7 @@ __metadata:
     eslint-plugin-storybook: ^0.11.0
     lodash: ^4.17.21
     next: 14.2.14
+    next-themes: ^0.4.3
     postcss: ^8
     postcss-nesting: ^13.0.1
     preline: ^2.5.0
@@ -7763,6 +7764,16 @@ __metadata:
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: deac9f8d00eda7b2e5cd1b2549e26e10a0faa70adaa6fdadca701cc55f49ee9018e427f424bac0c790b7c7e2d3068db97f3093f1093975f2acb8f8818b936ed9
+  languageName: node
+  linkType: hard
+
+"next-themes@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "next-themes@npm:0.4.3"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+  checksum: 23b3a594cf30379868433a16968987ee46f9491ff4f325f1d7b59ab09f22c1540d4ff5414f27ee894813dbc79333bac87276852c5fbe48fcab10571cd720490a
   languageName: node
   linkType: hard
 

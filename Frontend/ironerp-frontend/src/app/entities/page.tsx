@@ -28,6 +28,7 @@ import {Popover, Tooltip} from "@blueprintjs/core";
 import Button from "@/app/components/common/Button";
 import Badge from "@/app/components/common/Badge";
 import PageHeader from "@/app/components/common/PageHeader";
+import PageContainer from "@/app/components/common/PageContainer";
 
 export default function Entities() {
     const [items, setItems] = useState<SimpleModelList[]>([]);
@@ -134,19 +135,9 @@ export default function Entities() {
         <>
             <PageHeader title="Models" breadcrumbItems={breadcrumbs} buttons={headerButtons} />
             
-            <main>
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <div className="flex flex-col">
-                        <div className="-m-1.5 overflow-x-auto">
-                            <div className="p-1.5 min-w-full inline-block align-middle">
-                                <div className="border rounded-lg shadow overflow-hidden dark:border-slate-800 dark:shadow-lg">
-                                    {body}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+            <PageContainer>
+                {body}
+            </PageContainer>
         </>
     );
 }

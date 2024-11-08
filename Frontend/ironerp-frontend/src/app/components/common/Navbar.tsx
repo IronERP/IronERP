@@ -1,5 +1,18 @@
 "use client";
 
+/*
+ * This file is part of IronERP.
+ * 
+ * IronERP is free software: you can redistribute it and/or modify it under the terms of 
+ * the GNU General Public License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * IronERP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+ * PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with IronERP. 
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import {BlueprintIcons_16Id} from "@blueprintjs/icons/lib/esnext/generated/16px/blueprint-icons-16";
 import AppMenu from "@/app/components/AppMenu/AppMenu";
 import Searcher from "@/app/components/Searcher";
@@ -8,6 +21,7 @@ import {Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIte
 import {Icon} from "@blueprintjs/core";
 
 import "./css/navbar.css";
+import ThemeToggle from "@/app/components/common/ThemeToggle";
 
 export interface NavbarProps {
     title: string;
@@ -80,12 +94,14 @@ export default function Navbar(props: NavbarProps) {
                         <div className="ml-4 flex items-center md:ml-6">
 
                             <Searcher />
+                            
+                            <ThemeToggle />
 
-                            <button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                <span className="absolute -inset-1.5"/>
-                                <span className="sr-only">View notifications</span>
-                                <BellIcon aria-hidden="true" className="h-6 w-6"/>
-                            </button>
+                            {/*<button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">*/}
+                            {/*    <span className="absolute -inset-1.5"/>*/}
+                            {/*    <span className="sr-only">View notifications</span>*/}
+                            {/*    <BellIcon aria-hidden="true" className="h-6 w-6"/>*/}
+                            {/*</button>*/}
 
                             {/* Profile dropdown */}
                             <Menu as="div" className="relative ml-3">

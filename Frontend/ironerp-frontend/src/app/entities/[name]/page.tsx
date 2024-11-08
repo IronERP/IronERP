@@ -23,12 +23,16 @@ import {AnchorButton, NonIdealState} from "@blueprintjs/core";
 import _ from "lodash";
 import PageHeader from "@/app/components/common/PageHeader";
 import Button from "@/app/components/common/Button";
+import {useTheme} from "next-themes";
+import PageContainer from "@/app/components/common/PageContainer";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
     const [ schema, setSchema ] = useState<ModelSchema | null>(null);
     const [ contents, setContents ] = useState<any | null>(null);
     const [ loadingTooLong, setLoadingTooLong ] = useState<boolean>(false);
+
+    const { theme } = useTheme();
     
     useEffect(() => {
         SchemaClient.LoadSchema(params.name)
@@ -108,33 +112,23 @@ export default function EntityDetail({ params }: { params: { name: string } })
     return <>
         <PageHeader title={schema?.name} breadcrumbItems={breadcrumbs} subtitle={schema?.namespace} buttons={headerButtons} />
         
-        <main>
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <div className="flex flex-col">
-                    <div className="-m-1.5 overflow-x-auto">
-                        <div className="p-1.5 min-w-full inline-block align-middle">
-                            <div className="border rounded-lg shadow overflow-hidden">
-                                {(contents.length > 0)? <>
-                                    <Table2 numRows={contents.length}>
-                                        {schema?.fields.map(field =>
-                                            <Column name={field.name} cellRenderer={tableCellRenderer} />
-                                        )}
-                                    </Table2>
-                                </> : <>
-                                    <div className="py-4">
-                                        <NonIdealState 
-                                            icon="search" 
-                                            title="Nothing Found" 
-                                            description={`You don't have any instances of ${schema?.name} yet. You can go ahead and create one now.`}
-                                            action={<AnchorButton href={`/entities/${schema?.name}/new`} outlined={true} text={`Create a new ${schema?.name}`} icon="plus" intent="primary"  />} 
-                                            layout="horizontal"/>
-                                    </div>
-                                </>}
-                            </div>
-                        </div>
-                    </div>
+        <PageContainer>
+            {(contents.length > 0)? <>
+                <Table2 numRows={contents.length}>
+                    {schema?.fields.map(field =>
+                        <Column name={field.name} cellRenderer={tableCellRenderer} />
+                    )}
+                </Table2>
+            </> : <>
+                <div className="py-4">
+                    <NonIdealState
+                        icon="search"
+                        title="Nothing Found"
+                        description={`You don't have any instances of ${schema?.name} yet. You can go ahead and create one now.`}
+                        action={<AnchorButton href={`/entities/${schema?.name}/new`} outlined={true} text={`Create a new ${schema?.name}`} icon="plus" intent="primary"  />}
+                        layout="horizontal"/>
                 </div>
-            </div>
-        </main>
+            </>}
+        </PageContainer>
     </>;
 }

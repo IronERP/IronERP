@@ -25,6 +25,7 @@ import Searcher from "@/app/components/Searcher";
 import {Squares2X2Icon} from "@heroicons/react/24/outline";
 import AppMenu from "@/app/components/AppMenu/AppMenu";
 import Navbar, {NavigationItem} from "@/app/components/common/Navbar";
+import ThemeProvider from "@/app/components/ThemeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -59,15 +60,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     { name: 'Sign out', href: '#' },
   ]
   return (
-    <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-slate-600`}>
-        <div className="min-h-full">
-          <Navbar title="IronERP" user={user} navigationItems={navigation} userNavigationItems={userNavigation} variant="light" />
-          {children}
-          <div className="text-center text-slate-800 dark:text-slate-200">IronERP v1.0.0</div>
-        </div>
-        <PrelineScript />
-      </body>
-    </html>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-slate-600`}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <div className="min-h-full">
+              <Navbar title="IronERP" user={user} navigationItems={navigation} userNavigationItems={userNavigation}
+                      variant="light"/>
+              {children}
+              <div className="text-center text-slate-800 dark:text-slate-200">IronERP v1.0.0</div>
+            </div>
+          </ThemeProvider>
+          <PrelineScript/>
+        </body>
+      </html>
   );
 }
