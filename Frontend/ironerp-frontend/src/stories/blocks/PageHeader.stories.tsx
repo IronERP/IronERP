@@ -38,6 +38,11 @@ export const Default: Story = {
                 href: "",
                 current: true
             }
-        ]
+        ],
+        badge: {
+            text: "Unsaved Changes",
+            intent: "warning",
+            shown: true
+        }
     }
 }

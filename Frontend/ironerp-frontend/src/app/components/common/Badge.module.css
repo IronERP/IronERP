@@ -1,5 +1,7 @@
 .badge {
     @apply bg-default shadow-sm border border-default-d inline rounded py-1 px-2 text-default-t;
+    font-size: 15px;
+    vertical-align: middle;
 }
 
 :global(.dark) .badge {
