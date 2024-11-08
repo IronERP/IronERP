@@ -11,38 +11,20 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Breadcrumbs from "@/app/components/Breadcrumbs";
+import ThemeToggle from "@/app/components/common/ThemeToggle";
 import {Meta, StoryObj} from "@storybook/react";
 
-const meta: Meta<typeof Breadcrumbs> = {
-    title: "Controls/Breadcrumbs",
-    component: Breadcrumbs,
+const meta: Meta<typeof ThemeToggle> = {
+    title: 'Controls/Theme Toggle',
+    component: ThemeToggle,
     tags: ['autodocs']
 }
 
 export default meta;
-type Story = StoryObj<typeof Breadcrumbs>;
+type Story = StoryObj<typeof ThemeToggle>;
 
-export const Breadcrumb: Story = {
+export const Regular: Story = {
     args: {
-        items: [
-            {
-                name: "Home",
-                href: "",
-                bpicon: "home",
-                current: false
-            },
-            {
-                name: "Components",
-                href: "",
-                bpicon: "widget",
-                current: false
-            },
-            {
-                name: "Breadcrumbs",
-                href: "",
-                current: true
-            }
-        ]
+        
     }
 }

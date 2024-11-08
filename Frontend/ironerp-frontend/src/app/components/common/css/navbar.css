@@ -1,0 +1,50 @@
+/*
+ * This file is part of IronERP.
+ * 
+ * IronERP is free software: you can redistribute it and/or modify it under the terms of 
+ * the GNU General Public License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * IronERP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+ * PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with IronERP. 
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.navbar {
+    @apply bg-gradient-to-b from-sky-700 to-sky-800 dark:from-slate-800 dark:to-slate-700;
+}
+
+.navbar .nav-link {
+    @apply rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white;
+}
+
+.navbar .nav-link:hover {
+    @apply no-underline bg-gradient-to-b from-sky-600 to-sky-700 dark:from-slate-600 dark:to-slate-700;
+}
+
+.navbar .nav-link.current {
+    @apply bg-gradient-to-b from-sky-500 to-sky-600 text-white dark:from-slate-500 dark:to-slate-600;
+}
+
+.navbar-dark {    
+}
+
+.navbar-dark .nav-link {
+    
+}
+
+.navbar-dark .nav-link:hover {    
+}
+
+.navbar-dark .nav-link.current {    
+}
+
+.search-input {
+    @apply bg-gradient-to-b from-sky-600 to-sky-700 text-slate-100 rounded-md me-4 placeholder-slate-200 w-80 focus:ring-0 focus:border-slate-400
+    dark:from-slate-600 dark:to-slate-700 dark:text-white dark:placeholder-slate-300;
+}
+
+.navbar-dark .search-input {
+    
+}

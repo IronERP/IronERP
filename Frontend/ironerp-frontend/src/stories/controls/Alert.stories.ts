@@ -11,62 +11,64 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Button from "@/app/components/common/Button";
+import Alert from "@/app/components/common/Alert";
 import {Meta, StoryObj} from "@storybook/react";
 
-const meta: Meta<typeof Button> = {
-    title: "Controls/Button",
-    component: Button,
+const meta: Meta<typeof Alert> = {
+    title: "Controls/Alert",
+    component: Alert,
     tags: ['autodocs']
 }
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Alert>;
 
 export const Primary: Story = {
     args: {
-        label: "Primary Button",
+        title: "Hello There",
+        content: "This is a primary alert",
         intent: "primary",
-        icon: "plus"
-    }
-}
-
-export const Default: Story = {
-    args: {
-        label: "Default Button",
-        intent: "default",
-        icon: "circle"
+        icon: "info-sign",
+        dismissable: true
     }
 }
 
 export const Secondary: Story = {
     args: {
-        label: "Secondary Button",
+        title: "Hello There",
+        content: "This is a secondary alert",
         intent: "secondary",
-        icon: "minus"
+        icon: "info-sign",
+        dismissable: true
     }
 }
 
 export const Success: Story = {
     args: {
-        label: "Success Button",
+        title: "Hello There",
+        content: "This is a success alert",
         intent: "success",
-        icon: "spell-check"
+        icon: "spell-check",
+        dismissable: true
     }
 }
 
 export const Warning: Story = {
     args: {
-        label: "Warning Button",
+        title: "Hello There",
+        content: "This is a warning alert",
         intent: "warning",
-        icon: "warning-sign"
+        icon: "warning-sign",
+        dismissable: true
     }
 }
 
 export const Danger: Story = {
     args: {
-        label: "Danger Button",
+        title: "Hello There",
+        content: "This is a danger alert",
         intent: "danger",
-        icon: "error"
+        icon: "error",
+        dismissable: true
     }
 }

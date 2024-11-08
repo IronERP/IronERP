@@ -77,20 +77,20 @@ function EntityEditor(
             
                 {schema?.fields.map((field) => <>
                 <div>
-                <div className="flex rounded-lg shadow-sm">
+                    <div className="input-group">
                         { ((!field.secret && !field.redacted) || mode == 'new')? <>
-                            <span className="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-50 text-sm text-gray-500 dark:bg-neutral-700 dark:border-neutral-700 dark:text-neutral-400">                                
+                            <span className="label">                                
                                 {field.label? field.label : field.name}
                                 {field.required? <><span className="text-red-500 ms-1 font-black">*</span></> : <></>}
                             </span>
-                            <input onChange={ e => setValues({ ...values, [field.name.toLowerCase()]: e.target.value })} value={values[field.name.toLowerCase()]} disabled={(field.name.toLowerCase() == "id" || isLoading)} type="text" className="py-3 px-4 pe-11 block w-full border-gray-200 shadow-sm rounded-e-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"/>
+                            <input onChange={ e => setValues({ ...values, [field.name.toLowerCase()]: e.target.value })} value={values[field.name.toLowerCase()]} disabled={(field.name.toLowerCase() == "id" || isLoading)} type="text"/>
                         </> : <>
                             {field.secret? <>
-                                <span className="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-50 text-sm text-gray-500 dark:bg-neutral-700 dark:border-neutral-700 dark:text-neutral-400">
+                                <span className="label">
                                     {field.label? field.label : field.name}
                                     {field.required? <><span className="text-red-500 ms-1 font-black">*</span></> : <></>}
                                 </span>
-                                <input value={values[field.name.toLowerCase()]} type="password" className="py-3 px-4 pe-11 block w-full border-gray-200 shadow-sm rounded-e-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"/>
+                                <input value={values[field.name.toLowerCase()]} type="password" />
                             </> : <></>}
                             {field.redacted ? <><RedactedField isRequired={field.required} label={field.label? field.label : field.name} item={values[field.name.toLowerCase()]} callback={(value) => { setValues({ ...values, [field.name.toLowerCase()]: value }) }} /></> : <></>}
                         </>}

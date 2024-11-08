@@ -1,0 +1,99 @@
+/*
+ * This file is part of IronERP.
+ * 
+ * IronERP is free software: you can redistribute it and/or modify it under the terms of 
+ * the GNU General Public License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * IronERP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+ * PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with IronERP. 
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.button {
+    @apply 
+        bg-default border border-default-d p-2 rounded shadow-sm text-gray-600 font-light
+        hover:enabled:bg-default-d hover:enabled:border-default-dd hover:enabled:shadow me-2 last-of-type:me-0
+        disabled:opacity-70 disabled:shadow-none disabled:border-none disabled:cursor-not-allowed;
+}
+
+:global(.dark) .button {
+    @apply
+        bg-slate-500 border-slate-600 text-white;
+}
+
+.button .icon {
+    margin-right: .5em;
+}
+
+.primary {
+    @apply 
+        bg-primary text-white border-primary-d
+        hover:enabled:bg-primary-d hover:enabled:border-primary-dd hover:enabled:shadow;
+}
+
+:global(.dark) .primary {
+    @apply
+        bg-primary text-white border-primary-d
+        hover:enabled:bg-primary-d hover:enabled:border-primary-dd hover:enabled:shadow;
+}
+
+.secondary {
+    @apply
+        bg-secondary border-secondary-d text-gray-500;
+}
+
+:global(.dark) .secondary {
+    @apply
+        bg-slate-600 border-slate-700 text-white;
+}
+
+.success {
+    @apply
+        bg-success border-success-d text-white
+        hover:enabled:bg-success-d hover:enabled:border-success-dd shadow;
+}
+
+:global(.dark) .success {
+    @apply bg-success border-success-d text-white
+    hover:enabled:bg-success-d hover:enabled:border-success-dd shadow;
+}
+
+.warning {
+    @apply
+        bg-warning border-warning-d text-slate-700
+        hover:enabled:bg-warning-d hover:enabled:border-warning-dd shadow;
+}
+
+:global(.dark) .warning {
+    @apply
+        bg-warning border-warning-d text-slate-700
+        hover:enabled:bg-warning-d hover:enabled:border-warning-dd shadow;
+}
+
+.danger {
+    @apply
+        bg-danger border-danger-d text-white
+        hover:enabled:bg-danger-d hover:enabled:border-danger-dd shadow;
+}
+
+:global(.dark) .danger {
+    @apply
+        bg-danger border-danger-d text-white
+        hover:enabled:bg-danger-d hover:enabled:border-danger-dd shadow;
+}
+
+.xs {
+    @apply text-[10px] py-0;
+}
+
+.xs .icon {
+    @apply -mt-2;
+}
+
+.sm {
+    @apply text-[12px] py-1;
+}
+
+.lg {}

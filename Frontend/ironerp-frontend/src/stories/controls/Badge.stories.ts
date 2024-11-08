@@ -11,62 +11,59 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Button from "@/app/components/common/Button";
 import {Meta, StoryObj} from "@storybook/react";
+import Badge from "@/app/components/common/Badge";
 
-const meta: Meta<typeof Button> = {
-    title: "Controls/Button",
-    component: Button,
+const meta: Meta<typeof Badge> = {
+    title: 'Controls/Badge',
+    component: Badge,
     tags: ['autodocs']
 }
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Badge>;
 
 export const Primary: Story = {
     args: {
-        label: "Primary Button",
-        intent: "primary",
-        icon: "plus"
+        text: "Badge",
+        secondText: "with addon",
+        icon: "info-sign",
+        intent: "primary"
     }
-}
-
-export const Default: Story = {
-    args: {
-        label: "Default Button",
-        intent: "default",
-        icon: "circle"
-    }
-}
+};
 
 export const Secondary: Story = {
     args: {
-        label: "Secondary Button",
-        intent: "secondary",
-        icon: "minus"
+        text: "Badge",
+        secondText: "with addon",
+        icon: "minus",
+        intent: "secondary"
     }
-}
+};
 
 export const Success: Story = {
     args: {
-        label: "Success Button",
-        intent: "success",
-        icon: "spell-check"
+        text: "Badge",
+        secondText: "with addon",
+        icon: "circle",
+        intent: "success"
     }
-}
+};
 
 export const Warning: Story = {
     args: {
-        label: "Warning Button",
-        intent: "warning",
-        icon: "warning-sign"
+        text: "Badge",
+        secondText: "with addon",
+        icon: "warning-sign",
+        intent: "warning"
     }
-}
+};
 
 export const Danger: Story = {
     args: {
-        label: "Danger Button",
-        intent: "danger",
-        icon: "error"
+        text: "Badge",
+        secondText: "with addon",
+        icon: "error",
+        intent: "danger"
     }
-}
+};

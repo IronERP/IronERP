@@ -25,6 +25,10 @@ import Breadcrumbs, {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {HomeIcon} from "@heroicons/react/16/solid";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {Popover, Tooltip} from "@blueprintjs/core";
+import Button from "@/app/components/common/Button";
+import Badge from "@/app/components/common/Badge";
+import PageHeader from "@/app/components/common/PageHeader";
+import PageContainer from "@/app/components/common/PageContainer";
 
 export default function Entities() {
     const [items, setItems] = useState<SimpleModelList[]>([]);
@@ -58,39 +62,31 @@ export default function Entities() {
     
     const body = error == null? <>
         {items.length > 0? <>
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="table">
                 <thead>
-                <tr className="divide-x divide-gray-200">
-                    <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th scope="col" className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
                 </thead>
 
                 <tbody className="divide-y divide-gray-200">
 
                 {items.map(item => <>
                     <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                            <a className="text-sky-600 font-bold" href={`/entities/${item.name}`}>{item.name}</a>
+                        <td>
+                            <a className="text-sky-600 dark:text-sky-400 font-bold" href={`/entities/${item.name}`}>{item.name}</a>
                         </td>
                         {item.isGenerated? <>
-                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                            <td className="text-end">
                                 <Tooltip content="This is a model defined by an installed app. Internal models can't be directly edited.">
-                                    <span
-                                        className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-xs font-medium bg-gray-500 text-gray-100 cursor-help">Internal Model</span>
+                                    <Badge intent="secondary" text="internal model" icon="help" />
                                 </Tooltip>
                             </td>
                         </> : <>
-                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                            <button type="button"
-                                        className="button intent-primary me-2">
-                                    <PencilIcon className="h-3 w-3 text-white"/> Edit
-                                </button>
-
-                                <button type="button"
-                                        className="button intent-danger">
-                                    <TrashIcon className="h-3 w-3 text-white"/> Delete
-                                </button>
+                            <td className="text-end">
+                                <Button label="Edit" icon="edit" intent="primary" className="me-2" size="sm" />                                
+                                <Button label="Delete" icon="delete" intent="danger" size="sm" />
                             </td>
                         </>}
 
@@ -129,47 +125,19 @@ export default function Entities() {
             </div>
         </div>
     </>;
+    
+    const headerButtons = <>
+        <Button label="Refresh" intent="default" icon="refresh" onClick={loadData} className="me-2" />
+        <Button label="New Model" intent="primary" icon="plus" />
+    </>;
 
     return (
         <>
-            <header className="bg-white shadow">
-                <Breadcrumbs items={breadcrumbs} />
-                
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <div className="lg:flex lg:items-center lg:justify-between">
-                        <div className="min-w-0 flex-1">
-                            <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Models</h2>
-                        </div>
-
-                        <div className="mt-5 flex lg:ml-4 lg:mt-0">
-                            <span className="hidden sm:block">
-                                <button type="button" className="button intent-secondary" onClick={loadData}>
-                                    <ArrowPathIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"/> Refresh
-                                </button>
-                            </span>
-
-                            <span className="sm:ml-3">
-                                <button type="button" className="button intent-primary">
-                                    <PlusIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5" /> New Model
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <main>
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <div className="flex flex-col">
-                        <div className="-m-1.5 overflow-x-auto">
-                            <div className="p-1.5 min-w-full inline-block align-middle">
-                                <div className="border rounded-lg shadow overflow-hidden">
-                                    {body}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+            <PageHeader title="Models" breadcrumbItems={breadcrumbs} buttons={headerButtons} />
+            
+            <PageContainer>
+                {body}
+            </PageContainer>
         </>
     );
 }

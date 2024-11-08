@@ -1,3 +1,5 @@
+"use client";
+
 /*
  * This file is part of IronERP.
  * 
@@ -11,19 +13,13 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { StorybookConfig } from "@storybook/nextjs";
+import {ThemeProvider as NextThemeProvider, ThemeProviderProps} from "next-themes";
+import {ReactNode} from "react";
 
-const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: [
-    "@storybook/addon-onboarding",
-    "@storybook/addon-essentials",
-    "@chromatic-com/storybook",
-    "@storybook/addon-interactions",
-  ],
-  framework: {
-    name: "@storybook/nextjs",
-    options: {},
-  },
-};
-export default config;
+interface Props extends ThemeProviderProps {
+    children: ReactNode
+}
+
+export default function ThemeProvider({ children, ...props }: Props) {
+    return <NextThemeProvider {...props}>{children}</NextThemeProvider>
+}

@@ -11,21 +11,29 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Breadcrumbs from "@/app/components/Breadcrumbs";
+import PageHeader from "@/app/components/common/PageHeader";
+import Button from "@/app/components/common/Button";
 import {Meta, StoryObj} from "@storybook/react";
+import Breadcrumbs from "@/app/components/Breadcrumbs";
 
-const meta: Meta<typeof Breadcrumbs> = {
-    title: "Controls/Breadcrumbs",
-    component: Breadcrumbs,
+const meta: Meta<typeof PageHeader> = {
+    title: 'Blocks/Page Header',
+    component: PageHeader,
     tags: ['autodocs']
 }
 
 export default meta;
-type Story = StoryObj<typeof Breadcrumbs>;
+type Story = StoryObj<typeof PageHeader>;
 
-export const Breadcrumb: Story = {
+export const Default: Story = {
     args: {
-        items: [
+        title: "Page Header",
+        subtitle: "Page Header Subtitle",
+        buttons: <>
+            <Button label="Refresh" intent="default" icon="refresh" />
+            <Button label="Add New" intent="primary" icon="plus" />
+        </>,
+        breadcrumbItems: [
             {
                 name: "Home",
                 href: "",
@@ -43,6 +51,11 @@ export const Breadcrumb: Story = {
                 href: "",
                 current: true
             }
-        ]
+        ],
+        badge: {
+            text: "Unsaved Changes",
+            intent: "warning",
+            shown: true
+        }
     }
 }
