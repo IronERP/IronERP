@@ -1,13 +1,17 @@
 # [IronERP](https://github.com/IronERP/IronERP)
 
-### IronERP is a free and open-source .NET Enterprise Resource Planning (ERP) system. The goal of IronERP is to be as flexible and customizable as possible while maintaining maximum user-friendliness.
+## IronERP is a free and open-source .NET Enterprise Resource Planning (ERP) system. The goal of IronERP is to be as flexible and customizable as possible while maintaining maximum user-friendliness.
+
+### Warning! This project is in very early development! Please read the [Documentation](https://ironerp.org/docs/intro) for more information.
+
+---
 
 ![License GPLv3](https://img.shields.io/badge/License-GPLv3-blue)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-green)](/CONTRIBUTING.md)
 ![Static Badge](https://img.shields.io/badge/Latest_Release-v0.0.1.0-purple)
 ![Static Badge](https://img.shields.io/badge/NuGet-IronERP.Core%40v0.0.1.0-blue)
 
-
+---
 
 
 Learn more at [ironerp.org](https://ironerp.org).
