@@ -14,7 +14,7 @@
  */
 
 import {useEffect, useRef, useState} from "react";
-import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
+//import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import {HomeIcon} from "@heroicons/react/16/solid";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {CubeTransparentIcon} from "@heroicons/react/24/solid";
@@ -26,9 +26,11 @@ import PageHeader, {BadgeProps} from "@/app/components/common/PageHeader";
 import PageContainer from "@/app/components/common/PageContainer";
 import Alert from "@/app/components/common/Alert";
 
+import { IronERPClient as Client, Schema } from "@ironerp/client";
+
 export default function EditPage({ params }: { params: { id: string, name: string } }) {
     const [item, setItem] = useState<any | null>(null);
-    const [schema, setSchema] = useState<ModelSchema | null>(null);
+    const [schema, setSchema] = useState<Schema | null>(null);
     const [isChanged, setIsChanged] = useState<boolean>(false);
     const [originalState, setOriginalState] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,14 +41,14 @@ export default function EditPage({ params }: { params: { id: string, name: strin
     const editorRef = useRef<EntityEditorRef>(null);
 
     useEffect(() => {
-        SchemaClient.LoadGenericObject(params.name, params.id)
+        Client.models.getItem(params.name, params.id)
             .then(data => {
                 setItem(data);
                 setOriginalState(JSON.stringify(data));
             })
             .catch(console.error);
 
-        SchemaClient.LoadSchema(params.name)
+        Client.models.getSchema(params.name)
             .then(setSchema)
             .catch(console.error);
     }, []);
@@ -65,7 +67,7 @@ export default function EditPage({ params }: { params: { id: string, name: strin
         setIsLoading(true);
         setError(null);
         if (editorRef.current?.validateForm()) {
-            SchemaClient.PutGenericObject(params.name, item)
+            Client.models.updateItem(params.name, item)
                 .then(() => router.push(`/entities/${params.name}/${params.id}`))
                 .catch(console.error);
         }
