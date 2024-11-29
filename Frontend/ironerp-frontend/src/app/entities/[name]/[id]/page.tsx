@@ -19,7 +19,6 @@ import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
 import {CubeTransparentIcon} from "@heroicons/react/24/solid";
 import {PencilIcon, PlusIcon, TrashIcon} from "@heroicons/react/20/solid";
 import {useEffect, useState} from "react";
-import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import FullscreenLoader from "@/app/components/FullscreenLoader";
 import Redacted from "@/app/components/Redacted";
 import ConfirmDialog from "@/app/components/ConfirmDialog";
@@ -30,9 +29,11 @@ import PageHeader from "@/app/components/common/PageHeader";
 import Button from "@/app/components/common/Button";
 import PageContainer from "@/app/components/common/PageContainer";
 
+import { IronERPClient as Client, Schema } from "@ironerp/client";
+
 export default function EditPage({ params }: { params: { id: string, name: string } }) {
     const [ item, setItem ] = useState<any | null>(null);
-    const [ schema, setSchema ] = useState<ModelSchema | null>(null);
+    const [ schema, setSchema ] = useState<Schema | null>(null);
     
     const [ columns, setColumns ] = useState<number>(2);
     const [ displayType, setDisplayType ] = useState<boolean>(true);
@@ -40,11 +41,11 @@ export default function EditPage({ params }: { params: { id: string, name: strin
     const router = useRouter();
 
     useEffect(() => {
-        SchemaClient.LoadGenericObject(params.name, params.id)
+        Client.models.getItem(params.name, params.id)
             .then(setItem)
             .catch(console.error);
         
-        SchemaClient.LoadSchema(params.name)
+        Client.models.getSchema(params.name)
             .then(setSchema)
             .catch(console.error);
     }, []);
@@ -77,12 +78,13 @@ export default function EditPage({ params }: { params: { id: string, name: strin
     const [ deleteDialogShown, setDeleteDialogShown] = useState<boolean>(false);
     
     const onDeleteConfirm = () => {
-        SchemaClient.DeleteGenericObject(params.name, params.id)
+        Client.models.deleteItem(params.name, params.id)
             .then(res => {
                 if(res) router.push(`/entities/${params.name}`);
                 else alert("Something didn't work");
             })
             .catch(console.error);
+        return true;
     }
     
     if(item == null || schema == null) return <FullscreenLoader />;

@@ -34,6 +34,9 @@ Log.Logger = new LoggerConfiguration()
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load the optional `appsettings.Local.json` config file
+builder.Configuration.AddJsonFile("appsettings.Local.json", true);
+
 // Add Serilog to AspNet
 builder.Services.AddSerilog();
 

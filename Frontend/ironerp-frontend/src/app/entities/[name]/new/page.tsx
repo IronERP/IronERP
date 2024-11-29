@@ -15,7 +15,6 @@
 
 import {HomeIcon} from "@heroicons/react/16/solid";
 import {useEffect, useRef, useState} from "react";
-import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import EntityEditor, {EntityEditorRef} from "@/app/components/entityEditor";
 import {useRouter} from "next/navigation";
 import {BreadcrumbItem} from "@/app/components/Breadcrumbs";
@@ -26,9 +25,11 @@ import PageHeader from "@/app/components/common/PageHeader";
 import PageContainer from "@/app/components/common/PageContainer";
 import Alert from "@/app/components/common/Alert";
 
+import { IronERPClient as Client, Schema } from "@ironerp/client";
+
 export default function NewEntityPage( { params }: { params: { name: string } }) {
     const [ item, setItem ] = useState<any | null>({});
-    const [ schema, setSchema ] = useState<ModelSchema | null>(null);
+    const [ schema, setSchema ] = useState<Schema | null>(null);
     const [ isChanged, setIsChanged ] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string | null>(null);
@@ -37,7 +38,7 @@ export default function NewEntityPage( { params }: { params: { name: string } })
     const editorRef = useRef<EntityEditorRef>(null);
 
     useEffect(() => {
-        SchemaClient.LoadSchema(params.name)
+        Client.models.getSchema(params.name)
             .then(setSchema)
             .catch(console.error);
     }, []);
@@ -46,7 +47,7 @@ export default function NewEntityPage( { params }: { params: { name: string } })
         setIsLoading(true);
         setError(null);
         if(editorRef.current?.validateForm()) {
-            SchemaClient.PostGenericObject(params.name, item)
+            Client.models.createItem(params.name, item)
                 .then(() => router.push(`/entities/${params.name}`))
                 .catch(err => {
                     setError(err.message)
