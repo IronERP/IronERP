@@ -1902,6 +1902,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ironerp/client@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@ironerp/client@npm:0.1.0"
+  checksum: d855daa7c26ccf0b7bf6ccfdf16727a6ed7c48d07963a61569686c73ca271d8a1cef5421d7f40912fd7a05542b8eb7fc5bf8d0fe309ded358c1da8c1022edad1
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -3104,6 +3111,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.17.13":
+  version: 4.17.13
+  resolution: "@types/lodash@npm:4.17.13"
+  checksum: d0bf8fbd950be71946e0076b30fd40d492293baea75f05931b6b5b906fd62583708c6229abdb95b30205ad24ce1ed2f48bc9d419364f682320edd03405cc0c7e
   languageName: node
   linkType: hard
 
@@ -6718,6 +6732,7 @@ __metadata:
     "@chromatic-com/storybook": ^3.2.2
     "@headlessui/react": ^2.1.9
     "@heroicons/react": ^2.1.5
+    "@ironerp/client": ^0.1.0
     "@storybook/addon-essentials": ^8.4.2
     "@storybook/addon-interactions": ^8.4.2
     "@storybook/addon-onboarding": ^8.4.2
@@ -6727,6 +6742,7 @@ __metadata:
     "@storybook/test": ^8.4.2
     "@tailwindcss/forms": ^0.5.9
     "@tailwindcss/nesting": ^0.0.0-insiders.565cd3e
+    "@types/lodash": ^4.17.13
     "@types/node": ^20
     "@types/react": ^18
     "@types/react-dom": ^18
@@ -10317,11 +10333,11 @@ __metadata:
 
 "typescript@patch:typescript@^5#~builtin<compat/typescript>":
   version: 5.6.2
-  resolution: "typescript@patch:typescript@npm%3A5.6.2#~builtin<compat/typescript>::version=5.6.2&hash=f3b441"
+  resolution: "typescript@patch:typescript@npm%3A5.6.2#~builtin<compat/typescript>::version=5.6.2&hash=8c6c40"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c084ee1ab865f108c787e6233a5f63c126c482c0c8e87ec998ac5288a2ad54b603e1ea8b8b272355823b833eb31b9fabb99e8c6152283e1cb47e3a76bd6faf6c
+  checksum: be6138b734b2d5f6aa9844b760d6a9e853d395e55ec4570ff1026cca195e5968849e38907c18f9c5b35f6a38e4e18ec29937f1c2ae03c6405e9874ad45d810b1
   languageName: node
   linkType: hard
 

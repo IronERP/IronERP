@@ -14,7 +14,6 @@
  */
 
 import {useEffect, useState} from "react";
-import {ModelSchema, SchemaClient} from "@/lib/apiClient/SchemaClient";
 import {EyeSlashIcon, HomeIcon, LockClosedIcon} from "@heroicons/react/16/solid";
 import {BreadcrumbItem} from "@/app/components/Breadcrumbs";
 import {CodeBracketSquareIcon} from "@heroicons/react/24/outline";
@@ -25,21 +24,22 @@ import PageHeader from "@/app/components/common/PageHeader";
 import Button from "@/app/components/common/Button";
 import {useTheme} from "next-themes";
 import PageContainer from "@/app/components/common/PageContainer";
+import { IronERPClient as Client, Schema } from "@ironerp/client";
 
 export default function EntityDetail({ params }: { params: { name: string } })
 {
-    const [ schema, setSchema ] = useState<ModelSchema | null>(null);
+    const [ schema, setSchema ] = useState<Schema | null>(null);
     const [ contents, setContents ] = useState<any | null>(null);
     const [ loadingTooLong, setLoadingTooLong ] = useState<boolean>(false);
 
     const { theme } = useTheme();
     
     useEffect(() => {
-        SchemaClient.LoadSchema(params.name)
+        Client.models.getSchema(params.name)
             .then(setSchema)
             .catch(console.error);
 
-        SchemaClient.LoadGenericObjectList(params.name)
+        Client.models.getItems(params.name)
             .then(setContents)
             .catch(console.error);
     }, []);

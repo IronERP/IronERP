@@ -14,7 +14,6 @@
  */
 
 import {useEffect, useState} from "react";
-import {ModelClient, SimpleModelList} from "@/lib/apiClient/ModelClient";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {
     ArrowPathIcon,
@@ -29,9 +28,10 @@ import Button from "@/app/components/common/Button";
 import Badge from "@/app/components/common/Badge";
 import PageHeader from "@/app/components/common/PageHeader";
 import PageContainer from "@/app/components/common/PageContainer";
+import { IronERPClient as Client, SimpleModelSpec } from "@ironerp/client";
 
 export default function Entities() {
-    const [items, setItems] = useState<SimpleModelList[]>([]);
+    const [items, setItems] = useState<SimpleModelSpec[]>([]);
     
     const [ error, setError ] = useState<Error | null>(null);
 
@@ -42,8 +42,8 @@ export default function Entities() {
     const loadData = () => {
         setItems([]);
 
-        ModelClient.ListModels()
-            .then((items) => setItems(items))
+        Client.models.listModels()
+            .then(items => setItems(items))
             .catch(setError);
     }
 

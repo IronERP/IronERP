@@ -27,6 +27,9 @@ import AppMenu from "@/app/components/AppMenu/AppMenu";
 import Navbar, {NavigationItem} from "@/app/components/common/Navbar";
 import ThemeProvider from "@/app/components/ThemeProvider";
 
+import appConfig from '../../appconfig.json';
+import { IronERPClient as Client } from "@ironerp/client";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -39,6 +42,8 @@ const geistMono = localFont({
 });
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+  Client.init(appConfig.backendUrl, appConfig.clientSecret);
+
   const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',

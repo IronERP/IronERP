@@ -17,7 +17,7 @@ import {Intent} from "@/lib/etc/utils";
 import {ReactElement} from "react";
 
 export type BoolCallback = () => boolean;
-export type SetIsVisibleCallback = (boolean) => void;
+export type SetIsVisibleCallback = (arg0: boolean) => void;
 
 export interface ConfirmDialogProps {
     title: string;
@@ -36,12 +36,14 @@ export default function ConfirmDialog(props: ConfirmDialogProps)
 {
     const confirm = () => {
         props.setIsVisible(false);
-        props?.onConfirm();
+        if(props.onConfirm != null)
+            props?.onConfirm();
     }
     
     const cancel = () => {
         props.setIsVisible(false);
-        props?.onCancel();
+        if(props.onCancel != null)
+            props?.onCancel();
     }
     
     if(!props.isVisible) return <></>;
@@ -50,7 +52,7 @@ export default function ConfirmDialog(props: ConfirmDialogProps)
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-black opacity-75 z-40"></div>
         <div
             className="size-full fixed top-20 start-0 z-[80] overflow-x-hidden transition-all overflow-y-auto pointer-events-none"
-            role="dialog" tabIndex="-1" aria-labelledby="hs-basic-modal-label">
+            role="dialog" aria-labelledby="hs-basic-modal-label">
             <div className="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
                 <div className="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
                     <div className="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700">
