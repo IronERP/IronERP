@@ -1,4 +1,4 @@
 {
-    "backendUrl": "http://localhost:5057",
+    "backendUrl": "http://localhost:5057/api/v1",
     "clientSecret": "0x0000"
 }
